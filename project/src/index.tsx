@@ -172,7 +172,7 @@ const FILMS: Film[] =
   {
     name: 'Mindhunter',
     poster: '',
-    preview: 'https://9.react.pages.academy/static/film/preview/mindhunter ',
+    preview: 'https://9.react.pages.academy/static/film/preview/mindhunter.jpg ',
     backgroundImage: '',
     genre: '',
     released: 2017,
