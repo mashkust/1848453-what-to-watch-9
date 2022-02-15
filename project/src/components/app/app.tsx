@@ -2,8 +2,8 @@ import MainCard from '../main-card';
 
 type Film = {
   name: string,
-  posterImage: string,
-  previewImage: string,
+  poster: string,
+  preview: string,
   backgroundImage: string,
   genre: string,
   released: number,

@@ -5,8 +5,8 @@ import PageFooter from './page-footer';
 
 type Film = {
   name: string,
-  posterImage: string,
-  previewImage: string,
+  poster: string,
+  preview: string,
   backgroundImage: string,
   genre: string,
   released: number,
