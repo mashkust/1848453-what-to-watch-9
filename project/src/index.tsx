@@ -2,8 +2,216 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
 
+type Film = {
+  name: string,
+  poster: string,
+  preview: string,
+  backgroundImage: string,
+  genre: string,
+  released: number,
+  id: number,
+}
+
+const PROMO_FILM: Film =
+{
+  name: 'The Grand Budapest Hotel',
+  poster: 'img/the-grand-budapest-hotel-poster.jpg',
+  preview: 'https://9.react.pages.academy/static/film/preview/revenant.jpg',
+  backgroundImage: 'img/bg-the-grand-budapest-hotel.jpg',
+  genre: 'Drama',
+  released: 2014,
+  id: 1,
+};
+
+const FILMS: Film[] =
+[
+  {
+    name: 'Fantastic Beasts: The Crimes of Grindelwald',
+    poster: '',
+    preview: 'https://9.react.pages.academy/static/film/preview/fantastic-beasts-the-crimes-of-grindelwald.jpg',
+    backgroundImage: '',
+    genre: '',
+    released: 2018,
+    id: 1,
+  },
+  {
+    name: 'The Revenant',
+    poster: '',
+    preview: 'https://9.react.pages.academy/static/film/preview/revenant.jpg',
+    backgroundImage: '',
+    genre: '',
+    released: 2014,
+    id: 2,
+  },
+  {
+    name: 'Orlando',
+    poster: '',
+    preview: 'https://9.react.pages.academy/static/film/preview/orlando.jpg',
+    backgroundImage: '',
+    genre: '',
+    released: 1992,
+    id: 3,
+  },
+  {
+    name: 'We need to talk about Kevin',
+    poster: '',
+    preview: 'https://9.react.pages.academy/static/film/preview/we-need-to-talk-about-kevin.jpg',
+    backgroundImage: '',
+    genre: '',
+    released: 2011,
+    id: 4,
+  },
+  {
+    name: 'Seven Years in Tibet',
+    poster: '',
+    preview: 'https://9.react.pages.academy/static/film/preview/seven-years-in-tibet.jpg',
+    backgroundImage: '',
+    genre: '',
+    released: 1997,
+    id: 5,
+  },
+  {
+    name: 'Macbeth',
+    poster: '',
+    preview: 'https://9.react.pages.academy/static/film/preview/macbeth.jpg',
+    backgroundImage: '',
+    genre: '',
+    released: 2015,
+    id: 6,
+  },
+  {
+    name: 'Aviator',
+    poster: '',
+    preview: 'https://9.react.pages.academy/static/film/preview/aviator.jpg',
+    backgroundImage: '',
+    genre: '',
+    released: 2004,
+    id: 7,
+  },
+  {
+    name: 'No Country for Old Men',
+    poster: '',
+    preview: 'https://9.react.pages.academy/static/film/preview/no-country-for-old-men.jpg',
+    backgroundImage: '',
+    genre: '',
+    released: 2007,
+    id: 8,
+  },
+  {
+    name: 'Johnny English',
+    poster: '',
+    preview: 'https://9.react.pages.academy/static/film/preview/johnny-english.jpg',
+    backgroundImage: '',
+    genre: '',
+    released: 2003,
+    id: 9,
+  },
+  {
+    name: 'Bohemian Rhapsody',
+    poster: '',
+    preview: 'https://9.react.pages.academy/static/film/preview/bohemian_rhapsody.jpg',
+    backgroundImage: '',
+    genre: '',
+    released: 2018,
+    id: 10,
+  },
+  {
+    name: 'Moonrise Kingdom',
+    poster: '',
+    preview: 'https://9.react.pages.academy/static/film/preview/moonrise-kingdom.jpg',
+    backgroundImage: '',
+    genre: '',
+    released: 2012,
+    id: 11,
+  },
+  {
+    name: 'Midnight Special',
+    poster: '',
+    preview: 'https://9.react.pages.academy/static/film/preview/midnight-special.jpg',
+    backgroundImage: '',
+    genre: '',
+    released: 1984,
+    id: 12,
+  },
+  {
+    name: 'Shutter Island',
+    poster: '',
+    preview: 'https://9.react.pages.academy/static/film/preview/shutter-island.jpg',
+    backgroundImage: '',
+    genre: '',
+    released: 2010,
+    id: 13,
+  },
+  {
+    name: 'What We Do in the Shadows',
+    poster: '',
+    preview: 'https://9.react.pages.academy/static/film/preview/what-we-do-in-the-shadows.jpg',
+    backgroundImage: '',
+    genre: '',
+    released: 2019,
+    id: 14,
+  },
+  {
+    name: 'Dardjeeling Limited',
+    poster: '',
+    preview: 'https://9.react.pages.academy/static/film/preview/dardjeeling_limited.jpg',
+    backgroundImage: '',
+    genre: '',
+    released: 2007,
+    id: 15,
+  },
+  {
+    name: 'War of the Worlds',
+    poster: '',
+    preview: 'https://9.react.pages.academy/static/film/preview/war-of-the-worlds.jpg',
+    backgroundImage: '',
+    genre: '',
+    released: 2005,
+    id: 16,
+  },
+  {
+    name: 'Mindhunter',
+    poster: '',
+    preview: 'https://9.react.pages.academy/static/film/preview/mindhunter.jpg ',
+    backgroundImage: '',
+    genre: '',
+    released: 2017,
+    id: 17,
+  },
+  {
+    name: 'Snatch',
+    poster: '',
+    preview: 'https://9.react.pages.academy/static/film/preview/snatch.jpg',
+    backgroundImage: '',
+    genre: '',
+    released: 2000,
+    id: 18,
+  },
+  {
+    name: 'Pulp Fiction',
+    poster: '',
+    preview: 'https://9.react.pages.academy/static/film/preview/pulp-fiction.jpg',
+    backgroundImage: '',
+    genre: '',
+    released: 1994,
+    id: 19,
+  },
+  {
+    name: 'Legend',
+    poster: '',
+    preview: 'https://9.react.pages.academy/static/film/preview/legend.jpg',
+    backgroundImage: '',
+    genre: '',
+    released: 2015,
+    id: 20,
+  },
+];
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App
+      promoFilm={PROMO_FILM}
+      films={FILMS}
+    />
   </React.StrictMode>,
   document.getElementById('root'));
