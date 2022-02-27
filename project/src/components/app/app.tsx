@@ -1,11 +1,13 @@
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute, AuthorizationStatus} from '../../const';
 import MainCard from '../main-card';
 import SignIn from '../sign-in';
 import Player from '../player';
 import MoviePages from '../movie-page';
 import AddCard from '../add-review';
 import NotFoundPage from '../404-page';
+import PrivateRoute from '../private-route';
+import MyListPage from '../mylist-page';
 
 type Film = {
   name: string,
@@ -54,9 +56,17 @@ function App({promoFilm, films}: AppScreenProps): JSX.Element {
           element={<Player/>}
         />
         <Route
+          path={AppRoute.MyList}
+          element={
+            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+              <MyListPage films={films}/>
+            </PrivateRoute>
+          }
+        />
+        <Route
           path={AppRoute.AddReview}
           element={<AddCard film={PROMO_FILM}/>}
-        />\
+        />
         <Route
           path="*"
           element={<NotFoundPage/>}
