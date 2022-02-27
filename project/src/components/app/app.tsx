@@ -1,13 +1,14 @@
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
+import {PROMO_FILM} from '../../mock-data.js';
+import AddCard from '../add-card';
 import MainCard from '../main-card';
-import SignIn from '../sign-in';
-import Player from '../player';
-import MoviePages from '../movie-page';
-import AddCard from '../add-review';
-import NotFoundPage from '../notfound-page';
-import PrivateRoute from '../private-route';
+import MoviePages from '../movie-pages';
 import MyListPage from '../mylist-page';
+import NotFoundPage from '../notfound-page';
+import Player from '../player';
+import PrivateRoute from '../private-route';
+import SignIn from '../signin';
 
 type Film = {
   name: string,
@@ -18,17 +19,6 @@ type Film = {
   released: number,
   id: number,
 }
-
-const PROMO_FILM: Film =
-{
-  name: 'The Grand Budapest Hotel',
-  poster: 'img/the-grand-budapest-hotel-poster.jpg',
-  preview: 'https://9.react.pages.academy/static/film/preview/revenant.jpg',
-  backgroundImage: 'img/bg-the-grand-budapest-hotel.jpg',
-  genre: 'Drama',
-  released: 2014,
-  id: 1,
-};
 
 type AppScreenProps = {
   promoFilm: Film;
