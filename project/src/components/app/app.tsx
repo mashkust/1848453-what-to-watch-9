@@ -5,7 +5,7 @@ import SignIn from '../sign-in';
 import Player from '../player';
 import MoviePages from '../movie-page';
 import AddCard from '../add-review';
-import NotFoundPage from '../404-page';
+import NotFoundPage from '../notfound-page';
 import PrivateRoute from '../private-route';
 import MyListPage from '../mylist-page';
 
