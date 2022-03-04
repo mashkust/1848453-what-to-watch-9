@@ -1,3 +1,5 @@
+import {Link} from 'react-router-dom';
+
 type Film = {
   name: string,
   poster: string,
@@ -23,11 +25,11 @@ function FilmPromo({promoFilm}: FilmPromoProps): JSX.Element {
 
       <header className="page-header film-card__head">
         <div className="logo">
-          <a href="/" className="logo__link">
+          <Link to="/" className="logo__link">
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>
-          </a>
+          </Link>
         </div>
 
         <ul className="user-block">
@@ -37,7 +39,7 @@ function FilmPromo({promoFilm}: FilmPromoProps): JSX.Element {
             </div>
           </li>
           <li className="user-block__item">
-            <a href="/" className="user-block__link">Sign out</a>
+            <Link to="/login" className="user-block__link">Sign out</Link>
           </li>
         </ul>
       </header>

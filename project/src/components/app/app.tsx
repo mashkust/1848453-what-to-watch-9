@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
-import {PROMO_FILM} from '../../mock-data.js';
+// import {PROMO_FILM} from '../../mocks/films';
 import AddCard from '../add-card';
 import MainCard from '../main-card';
 import MoviePages from '../movie-pages';
@@ -26,12 +27,15 @@ type AppScreenProps = {
 }
 
 function App({promoFilm, films}: AppScreenProps): JSX.Element {
+
+  const [currentFilm, setCurrentFilm] = useState<Film | null>(null);
+
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainCard promoFilm={promoFilm} films={films}/>}
+          element={<MainCard {...{ setCurrentFilm, promoFilm, films }} />}
         />
         <Route
           path={AppRoute.SignIn}
@@ -39,7 +43,7 @@ function App({promoFilm, films}: AppScreenProps): JSX.Element {
         />
         <Route
           path={AppRoute.Film}
-          element={<MoviePages film={PROMO_FILM} similarFilms={films}/>}
+          element={<MoviePages setCurrentFilm = {setCurrentFilm} film={currentFilm} similarFilms={films}/>}
         />
         <Route
           path={AppRoute.Player}
@@ -49,13 +53,13 @@ function App({promoFilm, films}: AppScreenProps): JSX.Element {
           path={AppRoute.MyList}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              <MyListPage films={films}/>
+              <MyListPage {...{ setCurrentFilm, films }}/>
             </PrivateRoute>
           }
         />
         <Route
           path={AppRoute.AddReview}
-          element={<AddCard film={PROMO_FILM}/>}
+          element={<AddCard film={currentFilm}/>}
         />
         <Route
           path="*"

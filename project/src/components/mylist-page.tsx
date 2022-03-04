@@ -1,5 +1,6 @@
 import FilmCard from './film-card';
 import PageFooter from './page-footer';
+import {Link} from 'react-router-dom';
 
 type Film = {
   name: string,
@@ -13,18 +14,19 @@ type Film = {
 
 type MyListProps = {
   films: Film[];
+  setCurrentFilm:React.Dispatch<React.SetStateAction<Film | null>>
 }
 
-function MyListPage({films}: MyListProps): JSX.Element {
+function MyListPage({films, setCurrentFilm}: MyListProps): JSX.Element {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
         <div className="logo">
-          <a href="main.html" className="logo__link">
+          <Link to="main.html" className="logo__link">
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>
-          </a>
+          </Link>
         </div>
 
         <h1 className="page-title user-page__title">My list</h1>
@@ -32,11 +34,11 @@ function MyListPage({films}: MyListProps): JSX.Element {
         <ul className="user-block">
           <li className="user-block__item">
             <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+              <img src="img/Linkvatar.jpg" alt="User avatar" width="63" height="63" />
             </div>
           </li>
           <li className="user-block__item">
-            <a href="/" className="user-block__link">Sign out</a>
+            <Link to="/" className="user-block__link">Sign out</Link>
           </li>
         </ul>
       </header>
@@ -45,7 +47,7 @@ function MyListPage({films}: MyListProps): JSX.Element {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__films-list">
-          {films.map((film: Film) => <FilmCard film={film} key={film.id}/>)}
+          {films.map((film: Film) => <FilmCard {...{ setCurrentFilm, film}} key={film.id}/>)}
         </div>
       </section>
       <PageFooter />
