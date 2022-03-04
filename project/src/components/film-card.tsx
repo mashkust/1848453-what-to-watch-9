@@ -9,6 +9,7 @@ type Film = {
   genre: string,
   released: number,
   id: number,
+  review: string;
 }
 
 type FilmCardProps = {

@@ -6,6 +6,7 @@ type Film = {
   genre: string,
   released: number,
   id: number,
+  review: string;
 }
 
 export const PROMO_FILM: Film =
@@ -17,6 +18,7 @@ export const PROMO_FILM: Film =
   genre: 'Drama',
   released: 2014,
   id: 1,
+  review: '',
 };
 
 export const FILMS: Film[] =
@@ -29,6 +31,7 @@ export const FILMS: Film[] =
     genre: '',
     released: 2018,
     id: 1,
+    review: '',
   },
   {
     name: 'The Revenant',
@@ -38,6 +41,7 @@ export const FILMS: Film[] =
     genre: '',
     released: 2014,
     id: 2,
+    review: '',
   },
   {
     name: 'Orlando',
@@ -47,6 +51,7 @@ export const FILMS: Film[] =
     genre: '',
     released: 1992,
     id: 3,
+    review: '',
   },
   {
     name: 'We need to talk about Kevin',
@@ -56,6 +61,7 @@ export const FILMS: Film[] =
     genre: '',
     released: 2011,
     id: 4,
+    review: '',
   },
   {
     name: 'Seven Years in Tibet',
@@ -65,6 +71,7 @@ export const FILMS: Film[] =
     genre: '',
     released: 1997,
     id: 5,
+    review: '',
   },
   {
     name: 'Macbeth',
@@ -74,6 +81,7 @@ export const FILMS: Film[] =
     genre: '',
     released: 2015,
     id: 6,
+    review: '',
   },
   {
     name: 'Aviator',
@@ -83,6 +91,7 @@ export const FILMS: Film[] =
     genre: '',
     released: 2004,
     id: 7,
+    review: '',
   },
   {
     name: 'No Country for Old Men',
@@ -92,6 +101,7 @@ export const FILMS: Film[] =
     genre: '',
     released: 2007,
     id: 8,
+    review: '',
   },
   {
     name: 'Johnny English',
@@ -101,6 +111,7 @@ export const FILMS: Film[] =
     genre: '',
     released: 2003,
     id: 9,
+    review: '',
   },
   {
     name: 'Bohemian Rhapsody',
@@ -110,6 +121,7 @@ export const FILMS: Film[] =
     genre: '',
     released: 2018,
     id: 10,
+    review: '',
   },
   {
     name: 'Moonrise Kingdom',
@@ -119,6 +131,7 @@ export const FILMS: Film[] =
     genre: '',
     released: 2012,
     id: 11,
+    review: '',
   },
   {
     name: 'Midnight Special',
@@ -128,6 +141,7 @@ export const FILMS: Film[] =
     genre: '',
     released: 1984,
     id: 12,
+    review: '',
   },
   {
     name: 'Shutter Island',
@@ -137,6 +151,7 @@ export const FILMS: Film[] =
     genre: '',
     released: 2010,
     id: 13,
+    review: '',
   },
   {
     name: 'What We Do in the Shadows',
@@ -146,6 +161,7 @@ export const FILMS: Film[] =
     genre: '',
     released: 2019,
     id: 14,
+    review: '',
   },
   {
     name: 'Dardjeeling Limited',
@@ -155,6 +171,7 @@ export const FILMS: Film[] =
     genre: '',
     released: 2007,
     id: 15,
+    review: '',
   },
   {
     name: 'War of the Worlds',
@@ -164,6 +181,7 @@ export const FILMS: Film[] =
     genre: '',
     released: 2005,
     id: 16,
+    review: '',
   },
   {
     name: 'Mindhunter',
@@ -173,6 +191,7 @@ export const FILMS: Film[] =
     genre: '',
     released: 2017,
     id: 17,
+    review: '',
   },
   {
     name: 'Snatch',
@@ -182,6 +201,7 @@ export const FILMS: Film[] =
     genre: '',
     released: 2000,
     id: 18,
+    review: '',
   },
   {
     name: 'Pulp Fiction',
@@ -191,6 +211,7 @@ export const FILMS: Film[] =
     genre: '',
     released: 1994,
     id: 19,
+    review: '',
   },
   {
     name: 'Legend',
@@ -200,5 +221,6 @@ export const FILMS: Film[] =
     genre: '',
     released: 2015,
     id: 20,
+    review: '',
   },
 ];
