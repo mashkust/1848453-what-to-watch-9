@@ -1,3 +1,6 @@
+import {useState} from 'react';
+import {Link} from 'react-router-dom';
+
 type Film = {
   name: string,
   poster: string,
@@ -6,35 +9,37 @@ type Film = {
   genre: string,
   released: number,
   id: number,
+  review: string;
 }
 
 type AddReviewProps = {
-  film: Film;
+  film:Film | null;
 };
 
 function AddCard({film}: AddReviewProps): JSX.Element {
+  const [text, setText] = useState<string>('');
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+          <img src={ film ? film.backgroundImage:''} alt={ film ? film.name :''} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
 
         <header className="page-header">
           <div className="logo">
-            <a href="main.html" className="logo__link">
+            <Link to="main.html" className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="film-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
+                <Link to="film-page.html" className="breadcrumbs__link">{ film ? film.name :''}</Link>
               </li>
               <li className="breadcrumbs__item">
                 <a className="breadcrumbs__link">Add review</a>
@@ -55,12 +60,16 @@ function AddCard({film}: AddReviewProps): JSX.Element {
         </header>
 
         <div className="film-card__poster film-card__poster--small">
-          <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+          <img src={ film ? film.poster:''} alt={ film ? film.name :''} width="218" height="327" />
         </div>
       </div>
 
       <div className="add-review">
-        <form action="#" className="add-review__form">
+        <form onSubmit={(evt: React.FormEvent<HTMLFormElement>)=> {
+          evt.preventDefault();
+          setText('');
+        }} action="#" className="add-review__form"
+        >
           <div className="rating">
             <div className="rating__stars">
               <input className="rating__input" id="star-10" type="radio" name="rating" value="10" />
@@ -96,7 +105,9 @@ function AddCard({film}: AddReviewProps): JSX.Element {
           </div>
 
           <div className="add-review__text">
-            <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"></textarea>
+            <textarea value={text} onChange = {(evt: React.ChangeEvent<HTMLTextAreaElement>) => setText(evt.currentTarget.value)}
+              className="add-review__textarea" name="review-text" id="review-text" placeholder="Введите..."
+            />
             <div className="add-review__submit">
               <button className="add-review__btn" type="submit">Post</button>
             </div>
@@ -104,7 +115,6 @@ function AddCard({film}: AddReviewProps): JSX.Element {
           </div>
         </form>
       </div>
-
     </section>
   );
 }
