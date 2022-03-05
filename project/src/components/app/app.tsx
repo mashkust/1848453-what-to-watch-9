@@ -25,7 +25,6 @@ type Film = {
 type AppScreenProps = {
   promoFilm: Film;
   films: Film[];
-  review
 }
 
 function App({promoFilm, films}: AppScreenProps): JSX.Element {

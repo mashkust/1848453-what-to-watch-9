@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import {Link} from 'react-router-dom';
 
 type Film = {
@@ -16,6 +17,7 @@ type AddReviewProps = {
 };
 
 function AddCard({film}: AddReviewProps): JSX.Element {
+  const [text, setText] = useState<string>('');
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
@@ -63,7 +65,11 @@ function AddCard({film}: AddReviewProps): JSX.Element {
       </div>
 
       <div className="add-review">
-        <form action="#" className="add-review__form">
+        <form onSubmit={(evt: React.FormEvent<HTMLFormElement>)=> {
+          evt.preventDefault();
+          setText('');
+        }} action="#" className="add-review__form"
+        >
           <div className="rating">
             <div className="rating__stars">
               <input className="rating__input" id="star-10" type="radio" name="rating" value="10" />
@@ -99,7 +105,9 @@ function AddCard({film}: AddReviewProps): JSX.Element {
           </div>
 
           <div className="add-review__text">
-            <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder={film ? film.review:''}></textarea>
+            <textarea value={text} onChange = {(evt: React.ChangeEvent<HTMLTextAreaElement>) => setText(evt.currentTarget.value)}
+              className="add-review__textarea" name="review-text" id="review-text" placeholder="Введите..."
+            />
             <div className="add-review__submit">
               <button className="add-review__btn" type="submit">Post</button>
             </div>
