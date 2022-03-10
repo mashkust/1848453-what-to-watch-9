@@ -1,27 +1,40 @@
 import {Link, generatePath} from 'react-router-dom';
 import {AppRoute} from '../const';
-
-type Film = {
-  name: string,
-  poster: string,
-  preview: string,
-  backgroundImage: string,
-  genre: string,
-  released: number,
-  id: number,
-  review: string;
-}
+import { PREVIEW_TIMEOUT } from '../mocks/films';
+import VideoPlayer from './video-player';
+import type {Film} from '../types/types';
 
 type FilmCardProps = {
   film: Film;
   setCurrentFilm:React.Dispatch<React.SetStateAction<Film | null>>
-};
+  onHover: (cardId: number, isMouseLeave:boolean) => void;
+}
 
-function FilmCard({film, setCurrentFilm}: FilmCardProps): JSX.Element {
+
+function FilmCard({film,onHover, setCurrentFilm}: FilmCardProps): JSX.Element {
   return (
-    <article className="small-film-card catalog__films-card">
+    <article
+      onMouseEnter={
+        () => {
+          setTimeout(() => {
+            onHover(film.id, false);
+          }, PREVIEW_TIMEOUT);
+        }
+      }
+      onMouseLeave={
+        () => {
+          onHover(film.id, true);
+        }
+      }
+      className="small-film-card catalog__films-card"
+    >
       <div className="small-film-card__image">
-        <img src={film.preview} alt={film.name} width="280" height="175" />
+        <VideoPlayer
+          src={film.videoLink}
+          posterImage={film.preview}
+          isActive={!!film.isActive}
+          isPreview
+        />
       </div>
       <h3 className="small-film-card__title">
         <Link onClick={() => setCurrentFilm(film)} to={generatePath(AppRoute.Film,{id: String(film.id)})} className="small-film-card__link">{film.name}</Link>

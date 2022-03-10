@@ -1,16 +1,6 @@
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
-
-type Film = {
-  name: string,
-  poster: string,
-  preview: string,
-  backgroundImage: string,
-  genre: string,
-  released: number,
-  id: number,
-  review: string;
-}
+import type {Film} from '../types/types';
 
 type AddReviewProps = {
   film:Film | null;
@@ -22,7 +12,7 @@ function AddCard({film}: AddReviewProps): JSX.Element {
     <section className="film-card film-card--full">
       <div className="film-card__header">
         <div className="film-card__bg">
-          <img src={ film ? film.backgroundImage:''} alt={ film ? film.name :''} />
+          <img src={film ? film.backgroundImage:''} alt={film ? film.name :''} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
