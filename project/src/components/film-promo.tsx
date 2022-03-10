@@ -1,15 +1,5 @@
 import {Link} from 'react-router-dom';
-
-type Film = {
-  name: string,
-  poster: string,
-  preview: string,
-  backgroundImage: string,
-  genre: string,
-  released: number,
-  id: number,
-  review: string;
-}
+import type {Film} from '../types/types';
 
 type FilmPromoProps = {
   promoFilm: Film;

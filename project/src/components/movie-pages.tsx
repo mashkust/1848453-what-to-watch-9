@@ -3,17 +3,7 @@ import FilmCard from './film-card';
 import PageFooter from './page-footer';
 import { Link, generatePath } from 'react-router-dom';
 import { AppRoute } from '../const';
-
-type Film = {
-  name: string,
-  poster: string,
-  preview: string,
-  backgroundImage: string,
-  genre: string,
-  released: number,
-  id: number,
-  review: string;
-}
+import type {Film} from '../types/types';
 
 type MovieProps = {
   film: Film | null;
@@ -127,7 +117,11 @@ function MoviePages({ film, similarFilms, setCurrentFilm }: MovieProps): JSX.Ele
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
           <div className="catalog__films-list">
-            {similarFilms.map((similarFilm: Film) => <FilmCard setCurrentFilm = {setCurrentFilm} film={similarFilm} key={similarFilm.id} />)}
+            {similarFilms.map((similarFilm: Film) => (
+              <FilmCard onHover={function (cardId: number): void {
+                throw new Error('Function not implemented.');
+              } }  film={similarFilm} {...{ setCurrentFilm}} key={similarFilm.id}
+              />))}
           </div>
         </section>
         <PageFooter />

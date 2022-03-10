@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
-// import {PROMO_FILM} from '../../mocks/films';
+import type {Film} from '../../types/types';
 import AddCard from '../add-card';
 import MainCard from '../main-card';
 import MoviePages from '../movie-pages';
@@ -11,17 +11,6 @@ import Player from '../player';
 import PrivateRoute from '../private-route';
 import SignIn from '../signin';
 
-type Film = {
-  name: string,
-  poster: string,
-  preview: string,
-  backgroundImage: string,
-  genre: string,
-  released: number,
-  id: number,
-  review: string;
-}
-
 type AppScreenProps = {
   promoFilm: Film;
   films: Film[];
@@ -30,13 +19,14 @@ type AppScreenProps = {
 function App({promoFilm, films}: AppScreenProps): JSX.Element {
 
   const [currentFilm, setCurrentFilm] = useState<Film | null>(null);
+  const [filmsState,  setFilmsState] = useState<Film[]| null> (films);
 
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainCard {...{ setCurrentFilm, promoFilm, films }} />}
+          element={<MainCard {...{ filmsState, setFilmsState, setCurrentFilm, promoFilm, films }} />}
         />
         <Route
           path={AppRoute.SignIn}
@@ -48,7 +38,7 @@ function App({promoFilm, films}: AppScreenProps): JSX.Element {
         />
         <Route
           path={AppRoute.Player}
-          element={<Player/>}
+          element={<Player {...{films}}/>}
         />
         <Route
           path={AppRoute.MyList}

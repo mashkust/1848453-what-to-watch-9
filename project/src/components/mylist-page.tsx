@@ -1,17 +1,7 @@
 import FilmCard from './film-card';
 import PageFooter from './page-footer';
 import {Link} from 'react-router-dom';
-
-type Film = {
-  name: string,
-  poster: string,
-  preview: string,
-  backgroundImage: string,
-  genre: string,
-  released: number,
-  id: number,
-  review: string;
-}
+import type {Film} from '../types/types';
 
 type MyListProps = {
   films: Film[];
@@ -48,7 +38,11 @@ function MyListPage({films, setCurrentFilm}: MyListProps): JSX.Element {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__films-list">
-          {films.map((film: Film) => <FilmCard {...{ setCurrentFilm, film}} key={film.id}/>)}
+          {films.map((film: Film) => (
+            <FilmCard onHover={function (cardId: number): void {
+              throw new Error('Function not implemented.');
+            } } {...{ setCurrentFilm, film }} key={film.id}
+            />))}
         </div>
       </section>
       <PageFooter />
