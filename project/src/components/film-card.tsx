@@ -1,6 +1,6 @@
 import {Link, generatePath} from 'react-router-dom';
 import {AppRoute} from '../const';
-import { PREVIEW_TIMEOUT } from '../mocks/films';
+import { PREVIEW_TIMEOUT } from '../const';
 import VideoPlayer from './video-player';
 import type {Film} from '../types/types';
 
@@ -31,7 +31,7 @@ function FilmCard({film,onHover, setCurrentFilm}: FilmCardProps): JSX.Element {
       <div className="small-film-card__image">
         <VideoPlayer
           src={film.videoLink}
-          posterImage={film.preview}
+          posterImage={film.previewImage}
           isActive={!!film.isActive}
           isPreview
         />

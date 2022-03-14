@@ -4,11 +4,24 @@ import {Link} from 'react-router-dom';
 import type {Film} from '../types/types';
 
 type MyListProps = {
-  films: Film[];
   setCurrentFilm:React.Dispatch<React.SetStateAction<Film | null>>
+  setFilmsState: React.Dispatch<React.SetStateAction<Film[] | null>>;
+  filmsState: Film[]  | null;
 }
 
-function MyListPage({films, setCurrentFilm}: MyListProps): JSX.Element {
+function MyListPage({filmsState, setFilmsState, setCurrentFilm}: MyListProps): JSX.Element {
+  const onHoverHandler=(id:number, isMouseLeave:boolean) => {
+    setFilmsState((prev: Film[]|null) => {
+      if (prev) {
+        const newState= prev?.slice(0);
+        newState?.forEach((film)=> {
+          film.isActive = isMouseLeave ? false : film.id ===id;
+        });
+        return newState;
+      }
+      return prev;
+    });
+  };
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -38,11 +51,8 @@ function MyListPage({films, setCurrentFilm}: MyListProps): JSX.Element {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__films-list">
-          {films.map((film: Film) => (
-            <FilmCard onHover={function (cardId: number): void {
-              throw new Error('Function not implemented.');
-            } } {...{ setCurrentFilm, film }} key={film.id}
-            />))}
+          {filmsState && filmsState.map((film: Film) => (
+            <FilmCard onHover={onHoverHandler} {...{ setCurrentFilm, film }} key={film.id}/>))}
         </div>
       </section>
       <PageFooter />
@@ -51,3 +61,4 @@ function MyListPage({films, setCurrentFilm}: MyListProps): JSX.Element {
 }
 
 export default MyListPage;
+

@@ -26,15 +26,15 @@ function App({promoFilm, films}: AppScreenProps): JSX.Element {
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainCard {...{ filmsState, setFilmsState, setCurrentFilm, promoFilm, films }} />}
+          element={<MainCard {...{ filmsState, setFilmsState, setCurrentFilm, promoFilm}} />}
         />
         <Route
           path={AppRoute.SignIn}
           element={<SignIn/>}
-        />
+        />film,filmsState, setFilmsState,setCurrentFilm
         <Route
           path={AppRoute.Film}
-          element={<MoviePages setCurrentFilm = {setCurrentFilm} film={currentFilm} similarFilms={films}/>}
+          element={<MoviePages {...{ filmsState, setCurrentFilm, setFilmsState}} film={currentFilm} />}
         />
         <Route
           path={AppRoute.Player}
@@ -44,7 +44,7 @@ function App({promoFilm, films}: AppScreenProps): JSX.Element {
           path={AppRoute.MyList}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              <MyListPage {...{ setCurrentFilm, films }}/>
+              <MyListPage {...{ filmsState, setCurrentFilm, setFilmsState}}/>
             </PrivateRoute>
           }
         />

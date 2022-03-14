@@ -7,11 +7,24 @@ import type {Film} from '../types/types';
 
 type MovieProps = {
   film: Film | null;
-  similarFilms: Film[];
   setCurrentFilm:React.Dispatch<React.SetStateAction<Film | null>>
+  setFilmsState: React.Dispatch<React.SetStateAction<Film[] | null>>;
+  filmsState: Film[]  | null;
 }
 
-function MoviePages({ film, similarFilms, setCurrentFilm }: MovieProps): JSX.Element {
+function MoviePages({film,filmsState, setFilmsState,setCurrentFilm}: MovieProps): JSX.Element {
+  const onHoverHandler=(id:number, isMouseLeave:boolean) => {
+    setFilmsState((prev: Film[]|null) => {
+      if (prev) {
+        const newState= prev?.slice(0);
+        newState?.forEach((el)=> {
+          el.isActive = isMouseLeave ? false : el.id ===id;
+        });
+        return newState;
+      }
+      return prev;
+    });
+  };
   return (
     <React.Fragment>
       <section className="film-card film-card--full">
@@ -73,7 +86,7 @@ function MoviePages({ film, similarFilms, setCurrentFilm }: MovieProps): JSX.Ele
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={film ? film.poster : ''} alt={film ? film.name : ''} width="218" height="327" />
+              <img src={film ? film.posterImage:''} alt={film ? film.name : ''} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
@@ -117,11 +130,8 @@ function MoviePages({ film, similarFilms, setCurrentFilm }: MovieProps): JSX.Ele
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
           <div className="catalog__films-list">
-            {similarFilms.map((similarFilm: Film) => (
-              <FilmCard onHover={function (cardId: number): void {
-                throw new Error('Function not implemented.');
-              } }  film={similarFilm} {...{ setCurrentFilm}} key={similarFilm.id}
-              />))}
+            {filmsState && filmsState.map((el: Film) => (
+              <FilmCard onHover={onHoverHandler} film={el} setCurrentFilm={setCurrentFilm} key={el.id}/>))}
           </div>
         </section>
         <PageFooter />
