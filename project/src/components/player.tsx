@@ -11,7 +11,7 @@ function Player({films}: PlayerProps): JSX.Element {
 
   return (
     <div className="player">
-      <video src={film ? film.videoLink : ''} className="player__video" poster={film ? film.preview: ''}></video>
+      <video src={film ? film.videoLink : ''} className="player__video" poster={film ? film.previewImage: ''}></video>
 
       <button type="button" className="player__exit">Exit</button>
 

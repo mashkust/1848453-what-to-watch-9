@@ -1,19 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import FilmCard from './film-card';
 import FilmPromo from './film-promo';
 import PageFooter from './page-footer';
-import {Link} from 'react-router-dom';
-import type {Film} from '../types/types';
+import ListGenres from './list-genres';
+import type {Film, State} from '../types/types';
+import {useAppSelector,useAppDispatch} from '../hooks/hooks';
+import { DEFAULT_GENRE } from '../const';
+
 
 type MainCardProps = {
   promoFilm: Film;
   setCurrentFilm:React.Dispatch<React.SetStateAction<Film | null>>;
   setFilmsState: React.Dispatch<React.SetStateAction<Film[] | null>>;
   filmsState: Film[]  | null;
-
 }
 
 function MainCard({promoFilm, setCurrentFilm, setFilmsState, filmsState}: MainCardProps): JSX.Element {
+
+  // const initialFilms = useAppSelector((state: State) => state.films);
+  // // eslint-disable-next-line no-console
+  // console.log(initialFilms);
+  const activeGenre = useAppSelector((state: State) => state.activeGenre);
+
+  const filteredFilms = activeGenre === DEFAULT_GENRE ? filmsState :filmsState && filmsState.filter((film) => film.genre === activeGenre);
+
+  const dispatch = useAppDispatch();
+
+  const [genres, setGenres] = useState<string[]>([]);
+
+  useEffect(() => {
+    setGenres([DEFAULT_GENRE, ...new Set(filmsState && filmsState.map((film) => film.genre))]);
+  }, [dispatch, filmsState]);
+
   const onHoverHandler=(id:number, isMouseLeave:boolean) => {
     setFilmsState((prev: Film[]|null) => {
       if (prev) {
@@ -33,41 +51,12 @@ function MainCard({promoFilm, setCurrentFilm, setFilmsState, filmsState}: MainCa
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <Link to="/" className="catalog__genres-link">All genres</Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="/" className="catalog__genres-link">Comedies</Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="/" className="catalog__genres-link">Crime</Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="/" className="catalog__genres-link">Documentary</Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="/" className="catalog__genres-link">Dramas</Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="/" className="catalog__genres-link">Horror</Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="/" className="catalog__genres-link">Kids & Family</Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="/" className="catalog__genres-link">Romance</Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="/" className="catalog__genres-link">Sci-Fi</Link>
-            </li>
-            <li className="catalog__genres-item">
-              <Link to="/" className="catalog__genres-link">Thrillers</Link>
-            </li>
+            <ListGenres genres = {genres} />
           </ul>
 
           <div className="catalog__films-list">
-            {filmsState && filmsState.map((film: Film) => (
-              <FilmCard onHover={onHoverHandler} {...{ setCurrentFilm, film }} key={film.id}/>))}
+            {filteredFilms && filteredFilms.map((film: Film) => (
+              <FilmCard onHover={onHoverHandler} {...{ setCurrentFilm, film}} key={film.id}/>))}
           </div>
 
           <div className="catalog__more">

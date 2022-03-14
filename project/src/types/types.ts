@@ -1,15 +1,28 @@
-export type Film = {
-  name: string,
-  poster: string,
-  preview: string,
-  backgroundImage: string,
-  videoLink: string,
-  previewVideoLink: string,
-  genre: string,
-  released: number,
-  id: number,
-  review: string;
+import {store} from '../store/index.js';
 
-  //front
-  isActive?: boolean;
+
+export type Film = {
+  id: number
+  name: string
+  posterImage: string
+  previewImage: string
+  backgroundImage: string
+  backgroundColor: string
+  videoLink: string
+  previewVideoLink: string
+  description: string
+  rating: number
+  scoresCount: number
+  director: string
+  starring: [string]
+  runTime: number
+  genre: string
+  released: number
+  isFavorite: boolean
+
+  isActive?: boolean
 }
+
+export type State = ReturnType<typeof store.getState>;
+
+export type AppDispatch = typeof store.dispatch;

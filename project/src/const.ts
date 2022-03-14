@@ -12,3 +12,6 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export const DEFAULT_GENRE = 'All genres';
+export const PREVIEW_TIMEOUT= 1000;
