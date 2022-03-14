@@ -17,9 +17,6 @@ type MainCardProps = {
 
 function MainCard({promoFilm, setCurrentFilm, setFilmsState, filmsState}: MainCardProps): JSX.Element {
 
-  // const initialFilms = useAppSelector((state: State) => state.films);
-  // // eslint-disable-next-line no-console
-  // console.log(initialFilms);
   const activeGenre = useAppSelector((state: State) => state.activeGenre);
 
   const filteredFilms = activeGenre === DEFAULT_GENRE ? filmsState :filmsState && filmsState.filter((film) => film.genre === activeGenre);
