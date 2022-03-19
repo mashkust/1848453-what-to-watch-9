@@ -1,4 +1,4 @@
-import {store} from '../store/store';
+import {store} from '../store/index';
 import type {Film} from './types';
 
 export type State = {
@@ -6,6 +6,7 @@ export type State = {
   films: Film[],
   promoFilm: Film | object ,
   isDataLoaded: boolean,
+  authorizationStatus:string,
 };
 
 export type AppDispatch = typeof store.dispatch;

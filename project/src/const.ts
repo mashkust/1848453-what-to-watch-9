@@ -13,5 +13,16 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+export enum APIRoute {
+  Films = '/films',
+  Film = '/films/:id',
+  SimilarFilm = '/films/:id/Similar',
+  PromoFilm = '/promo',
+  Favorite = '/favorite',
+  Comments = '/comments/:id',
+  Login = '/login',
+  Logout = '/logout',
+}
+
 export const DEFAULT_GENRE = 'All genres';
 export const PREVIEW_TIMEOUT= 1000;
