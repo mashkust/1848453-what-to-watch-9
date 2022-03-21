@@ -6,6 +6,8 @@ import ListGenres from './list-genres';
 import type {Film, State} from '../types/types';
 import {useAppSelector,useAppDispatch} from '../hooks/hooks';
 import { DEFAULT_GENRE } from '../const';
+import { resetCountAction } from '../store/action';
+import ShowMoreButtonComponent from './show-more';
 
 
 type MainCardProps = {
@@ -20,6 +22,7 @@ function MainCard({promoFilm, setCurrentFilm, setFilmsState, filmsState}: MainCa
   const activeGenre = useAppSelector((state: State) => state.activeGenre);
 
   const filteredFilms = activeGenre === DEFAULT_GENRE ? filmsState :filmsState && filmsState.filter((film) => film.genre === activeGenre);
+  const renderedFilmCards = useAppSelector((state: State) => state.filmCardsCount);
 
   const dispatch = useAppDispatch();
 
@@ -28,6 +31,10 @@ function MainCard({promoFilm, setCurrentFilm, setFilmsState, filmsState}: MainCa
   useEffect(() => {
     setGenres([DEFAULT_GENRE, ...new Set(filmsState && filmsState.map((film) => film.genre))]);
   }, [dispatch, filmsState]);
+
+  useEffect(() => {
+    dispatch(resetCountAction());
+  }, [dispatch]);
 
   const onHoverHandler=(id:number, isMouseLeave:boolean) => {
     setFilmsState((prev: Film[]|null) => {
@@ -52,12 +59,12 @@ function MainCard({promoFilm, setCurrentFilm, setFilmsState, filmsState}: MainCa
           </ul>
 
           <div className="catalog__films-list">
-            {filteredFilms && filteredFilms.map((film: Film) => (
+            {filteredFilms && filteredFilms.slice(0, renderedFilmCards).map((film: Film) => (
               <FilmCard onHover={onHoverHandler} {...{ setCurrentFilm, film}} key={film.id}/>))}
           </div>
 
           <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
+            {filteredFilms && filteredFilms.length > renderedFilmCards ? <ShowMoreButtonComponent /> : ''}
           </div>
         </section>
         <PageFooter />

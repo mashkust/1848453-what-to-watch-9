@@ -39,3 +39,14 @@ export type AuthData = {
   login: string;
   password: string;
 };
+
+export type Review = {
+  comment: string;
+  date: string;
+  id: number;
+  rating: number;
+  user: {
+    id: number;
+    name: string;
+  };
+};

@@ -26,3 +26,5 @@ export enum APIRoute {
 
 export const DEFAULT_GENRE = 'All genres';
 export const PREVIEW_TIMEOUT= 1000;
+export const FILM_CARDS_COUNT = 8;
+export const FILM_CARDS_COUNT_STEP = 8;

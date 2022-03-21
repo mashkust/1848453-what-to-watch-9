@@ -9,3 +9,7 @@ export const loadFilms = createAction<Film[]>('data/loadFilms');
 export const loadPromoFilm = createAction<Film>('data/loadPromoFilm');
 
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
+
+export const incCountAction = createAction('main/incCountAction');
+
+export const resetCountAction = createAction('main/resetCountAction');

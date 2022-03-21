@@ -1,14 +1,15 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {setGenre,loadPromoFilm,loadFilms,requireAuthorization} from './action';
+import {setGenre,loadPromoFilm,loadFilms,requireAuthorization, incCountAction, resetCountAction} from './action';
 import type {Film} from '../types/types';
-import {DEFAULT_GENRE, AuthorizationStatus} from '../const';
+import {DEFAULT_GENRE, AuthorizationStatus, FILM_CARDS_COUNT, FILM_CARDS_COUNT_STEP} from '../const';
 
 type InitialState = {
   activeGenre: string,
   films: Film[],
   promoFilm: Film | object ,
   isDataLoaded: boolean,
-  authorizationStatus: string
+  authorizationStatus: string,
+  filmCardsCount: number,
 }
 
 const initialState: InitialState = {
@@ -17,6 +18,7 @@ const initialState: InitialState = {
   promoFilm: {},
   isDataLoaded: false,
   authorizationStatus: AuthorizationStatus.Unknown,
+  filmCardsCount: FILM_CARDS_COUNT,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -33,6 +35,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(incCountAction, (state) => {
+      state.filmCardsCount += FILM_CARDS_COUNT_STEP;
+    })
+    .addCase(resetCountAction, (state) => {
+      state.filmCardsCount = FILM_CARDS_COUNT;
     });
 });
 

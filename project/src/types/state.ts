@@ -7,6 +7,7 @@ export type State = {
   promoFilm: Film | object ,
   isDataLoaded: boolean,
   authorizationStatus:string,
+  filmCardsCount: number,
 };
 
 export type AppDispatch = typeof store.dispatch;

@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const';
-import type {Film} from '../../types/types';
+import {useAppSelector} from '../../hooks/hooks';
+import {AppRoute} from '../../const';
+import type {Review} from '../../types/types';
 import AddCard from '../add-card';
 import MainCard from '../main-card';
 import MoviePages from '../movie-pages';
@@ -9,17 +9,24 @@ import MyListPage from '../mylist-page';
 import NotFoundPage from '../notfound-page';
 import Player from '../player';
 import PrivateRoute from '../private-route';
+import LoadingScreen from '../loading-screen';
 import SignIn from '../signin';
 
 type AppScreenProps = {
-  promoFilm: Film;
-  films: Film[];
+  reviews: Review[];
 }
 
-function App({promoFilm, films}: AppScreenProps): JSX.Element {
+function App({reviews}: AppScreenProps): JSX.Element {
+  const {authorizationStatus, isDataLoaded} = useAppSelector((state) => state);
+  const films = useAppSelector((state) => state.films);
 
-  const [currentFilm, setCurrentFilm] = useState<Film | null>(null);
-  const [filmsState,  setFilmsState] = useState<Film[]| null> (films);
+  if (!isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
+  // const [currentFilm, setCurrentFilm] = useState<Film | null>(null);
+  // const [filmsState,  setFilmsState] = useState<Film[]| null> (films);
 
   return (
     <BrowserRouter>
@@ -43,7 +50,7 @@ function App({promoFilm, films}: AppScreenProps): JSX.Element {
         <Route
           path={AppRoute.MyList}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+            <PrivateRoute authorizationStatus={authorizationStatus}>
               <MyListPage {...{ filmsState, setCurrentFilm, setFilmsState}}/>
             </PrivateRoute>
           }
