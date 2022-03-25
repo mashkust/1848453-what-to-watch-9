@@ -15,13 +15,27 @@ export enum AuthorizationStatus {
 
 export enum APIRoute {
   Films = '/films',
-  Film = '/films/:id',
-  SimilarFilm = '/films/:id/Similar',
+  Film = '/films/',
+  SimilarFilms = '/films/',
   PromoFilm = '/promo',
   Favorite = '/favorite',
-  Comments = '/comments/:id',
+  Comments = '/comments/',
   Login = '/login',
   Logout = '/logout',
+}
+
+export enum NameSpace {
+  data = 'DATA',
+  film = 'FILM',
+  user = 'USER',
+}
+
+export enum RATING {
+  BAD = 'Bad',
+  NORMAL = 'Normal',
+  GOOD = 'Good',
+  VERY_GOOD = 'Very good',
+  AWESOME = 'Awesome',
 }
 
 export const DEFAULT_GENRE = 'All genres';

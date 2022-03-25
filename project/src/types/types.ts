@@ -1,3 +1,4 @@
+import { AuthorizationStatus } from '../const.js';
 import {store} from '../store/index.js';
 
 
@@ -49,4 +50,27 @@ export type Review = {
     id: number;
     name: string;
   };
+};
+
+export type UserProcess = {
+  authorizationStatus: AuthorizationStatus,
+  userData: UserData | object,
+};
+
+export type FilmProcess = {
+  activeGenre: string,
+  filmCardsCount: number,
+};
+
+export type FilmData = {
+  activeGenre: string,
+  films: Film[],
+  promoFilm: Film | object ,
+  isDataLoaded: boolean,
+  similarFilms: Film[],
+  authorizationStatus: string,
+  filmCardsCount: number,
+  film: Film | null,
+  reviews: Review[],
+  isDataSending: boolean,
 };

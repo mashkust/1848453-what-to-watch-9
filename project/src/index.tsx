@@ -1,17 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-import {PROMO_FILM, FILMS} from './mocks/films';
 import {Provider} from 'react-redux';
 import {store} from './store';
+import { checkAuthAction, fetchFilmsAction } from './store/api-actions';
+
+store.dispatch(fetchFilmsAction());
+store.dispatch(checkAuthAction());
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App
-        promoFilm={PROMO_FILM}
-        films={FILMS}
-      />
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));

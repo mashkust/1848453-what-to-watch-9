@@ -10,18 +10,6 @@ type MyListProps = {
 }
 
 function MyListPage({filmsState, setFilmsState, setCurrentFilm}: MyListProps): JSX.Element {
-  const onHoverHandler=(id:number, isMouseLeave:boolean) => {
-    setFilmsState((prev: Film[]|null) => {
-      if (prev) {
-        const newState= prev?.slice(0);
-        newState?.forEach((film)=> {
-          film.isActive = isMouseLeave ? false : film.id ===id;
-        });
-        return newState;
-      }
-      return prev;
-    });
-  };
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -52,7 +40,7 @@ function MyListPage({filmsState, setFilmsState, setCurrentFilm}: MyListProps): J
 
         <div className="catalog__films-list">
           {filmsState && filmsState.map((film: Film) => (
-            <FilmCard onHover={onHoverHandler} {...{ setCurrentFilm, film }} key={film.id}/>))}
+            <FilmCard  {...{ setCurrentFilm, film }} key={film.id}/>))}
         </div>
       </section>
       <PageFooter />

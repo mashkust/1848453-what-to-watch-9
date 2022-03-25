@@ -1,5 +1,5 @@
 import { useAppDispatch } from '../hooks/hooks';
-import { incCountAction } from '../store/action';
+import { incCountAction } from '../store/film-process';
 
 function ShowMoreButtonComponent(): JSX.Element {
   const dispatch = useAppDispatch();
