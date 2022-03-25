@@ -1,43 +1,50 @@
 import {Link, generatePath} from 'react-router-dom';
 import {AppRoute} from '../const';
-import { PREVIEW_TIMEOUT } from '../const';
+// import { PREVIEW_TIMEOUT } from '../const';
 import VideoPlayer from './video-player';
 import type {Film} from '../types/types';
+import { fetchFilmAction } from '../store/api-actions';
+import { store } from '../store';
+import { setActiveFilm } from '../store/film-data';
+import { useAppDispatch } from '../hooks/hooks';
 
 type FilmCardProps = {
   film: Film;
-  setCurrentFilm:React.Dispatch<React.SetStateAction<Film | null>>
-  onHover: (cardId: number, isMouseLeave:boolean) => void;
 }
 
 
-function FilmCard({film,onHover, setCurrentFilm}: FilmCardProps): JSX.Element {
+function FilmCard({film}: FilmCardProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const { videoLink, previewImage, isActive, id,name} = film;
   return (
     <article
       onMouseEnter={
         () => {
-          setTimeout(() => {
-            onHover(film.id, false);
-          }, PREVIEW_TIMEOUT);
+          dispatch(setActiveFilm({ id: film.id, isMouseOver: false}));
+          // setTimeout(() => {
+          //   // eslint-disable-next-line no-console
+          //   console.log('onMouseEnter');
+          // setActiveFilm({ id: film.id, isMouseOver: false});
+          // }, PREVIEW_TIMEOUT);
         }
       }
       onMouseLeave={
         () => {
-          onHover(film.id, true);
+          dispatch(setActiveFilm({ id: id, isMouseOver: true}));
         }
       }
       className="small-film-card catalog__films-card"
     >
       <div className="small-film-card__image">
         <VideoPlayer
-          src={film.videoLink}
-          posterImage={film.previewImage}
-          isActive={!!film.isActive}
+          src={videoLink}
+          posterImage={previewImage}
+          isActive={!!isActive}
           isPreview
         />
       </div>
       <h3 className="small-film-card__title">
-        <Link onClick={() => setCurrentFilm(film)} to={generatePath(AppRoute.Film,{id: String(film.id)})} className="small-film-card__link">{film.name}</Link>
+        <Link onClick={() => store.dispatch(fetchFilmAction(id)) } to={generatePath(AppRoute.Film,{id: String(id)})} className="small-film-card__link">{name}</Link>
       </h3>
     </article>
   );

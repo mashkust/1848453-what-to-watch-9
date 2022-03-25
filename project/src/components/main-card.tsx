@@ -3,61 +3,51 @@ import FilmCard from './film-card';
 import FilmPromo from './film-promo';
 import PageFooter from './page-footer';
 import ListGenres from './list-genres';
-import type {Film, State} from '../types/types';
+import type {Film} from '../types/types';
 import {useAppSelector,useAppDispatch} from '../hooks/hooks';
 import { DEFAULT_GENRE } from '../const';
+import ShowMoreButtonComponent from './show-more';
+import {fetchPromoFilmAction} from '../store/api-actions';
 
 
-type MainCardProps = {
-  promoFilm: Film;
-  setCurrentFilm:React.Dispatch<React.SetStateAction<Film | null>>;
-  setFilmsState: React.Dispatch<React.SetStateAction<Film[] | null>>;
-  filmsState: Film[]  | null;
-}
-
-function MainCard({promoFilm, setCurrentFilm, setFilmsState, filmsState}: MainCardProps): JSX.Element {
-
-  const activeGenre = useAppSelector((state: State) => state.activeGenre);
-
-  const filteredFilms = activeGenre === DEFAULT_GENRE ? filmsState :filmsState && filmsState.filter((film) => film.genre === activeGenre);
+function MainCard(): JSX.Element {
+  const promoFilmCard = useAppSelector(({DATA}) => DATA.promoFilm);
 
   const dispatch = useAppDispatch();
+  const initialFilms = useAppSelector(({DATA}) => DATA.films);
+  const {
+    activeGenre,
+    filmCardsCount,
+  } = useAppSelector(({FILM}) => FILM);
+
+  const filteredFilms = activeGenre === DEFAULT_GENRE ? initialFilms : initialFilms.filter((film) => film.genre === activeGenre);
 
   const [genres, setGenres] = useState<string[]>([]);
 
   useEffect(() => {
-    setGenres([DEFAULT_GENRE, ...new Set(filmsState && filmsState.map((film) => film.genre))]);
-  }, [dispatch, filmsState]);
+    setGenres([DEFAULT_GENRE, ...new Set(initialFilms && initialFilms.map((film) => film.genre))]);
+  }, [initialFilms]);
 
-  const onHoverHandler=(id:number, isMouseLeave:boolean) => {
-    setFilmsState((prev: Film[]|null) => {
-      if (prev) {
-        const newState= prev?.slice(0);
-        newState?.forEach((film)=> {
-          film.isActive = isMouseLeave ? false : film.id ===id;
-        });
-        return newState;
-      }
-      return prev;
-    });
-  };
+  useEffect(() => {
+    dispatch(fetchPromoFilmAction());
+  }, [dispatch]);
+
+
   return (
     <React.Fragment>
-      <FilmPromo promoFilm={promoFilm} />
+      <FilmPromo promoFilm={promoFilmCard as Film} />
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           <ul className="catalog__genres-list">
             <ListGenres genres = {genres} />
           </ul>
-
           <div className="catalog__films-list">
-            {filteredFilms && filteredFilms.map((film: Film) => (
-              <FilmCard onHover={onHoverHandler} {...{ setCurrentFilm, film}} key={film.id}/>))}
+            {filteredFilms && filteredFilms.slice(0, filmCardsCount).map((film: Film) => (
+              <FilmCard  {...{film}} key={film.id}/>))}
           </div>
-
           <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
+            {filteredFilms && filteredFilms.length > filmCardsCount ? <ShowMoreButtonComponent /> : ''}
           </div>
         </section>
         <PageFooter />
