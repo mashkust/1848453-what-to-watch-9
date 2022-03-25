@@ -21,7 +21,7 @@ function MainCard(): JSX.Element {
   } = useAppSelector(({FILM}) => FILM);
 
   const filteredFilms = activeGenre === DEFAULT_GENRE ? initialFilms : initialFilms.filter((film) => film.genre === activeGenre);
-  // const renderedFilmCards = useAppSelector((state: State) => state.filmCardsCount);
+
   const [genres, setGenres] = useState<string[]>([]);
 
   useEffect(() => {

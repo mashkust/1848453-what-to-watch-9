@@ -7,6 +7,7 @@ import { Link, useParams } from 'react-router-dom';
 import { fetchFilmAction, fetchReviewsAction, fetchSimilarFilmsAction } from '../store/api-actions';
 import { AuthorizationStatus } from '../const';
 import LoadingScreen from './loading-screen';
+import MovieTab from './movie-tab';
 
 function MoviePages(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -23,7 +24,7 @@ function MoviePages(): JSX.Element {
 
   const authorizationStatus = useAppSelector(({ USER }) => USER.authorizationStatus);
 
-  const { film, similarFilms } = useAppSelector(({ DATA }) => DATA);
+  const { film, similarFilms, reviews } = useAppSelector(({ DATA }) => DATA);
 
   if (film) {
     const { id, name, posterImage, backgroundImage, genre, released } = film as Film;
@@ -97,37 +98,7 @@ function MoviePages(): JSX.Element {
               </div>
 
               <div className="film-card__desc">
-                <nav className="film-nav film-card__nav">
-                  <ul className="film-nav__list">
-                    <li className="film-nav__item film-nav__item--active">
-                      <Link to="/" className="film-nav__link">Overview</Link>
-                    </li>
-                    <li className="film-nav__item">
-                      <Link to="/" className="film-nav__link">Details</Link>
-                    </li>
-                    <li className="film-nav__item">
-                      <Link to="/" className="film-nav__link">Reviews</Link>
-                    </li>
-                  </ul>
-                </nav>
-
-                <div className="film-rating">
-                  <div className="film-rating__score"></div>
-                  <p className="film-rating__meta">
-                    <span className="film-rating__level">Very good</span>
-                    <span className="film-rating__count"> ratings</span>
-                  </p>
-                </div>
-
-                <div className="film-card__text">
-                  <p>In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave&#39;s friend and protege.</p>
-
-                  <p>Gustave prides himself on providing first-className service to the hotel&#39;s guests, including satisfying the sexual needs of the many elderly women who stay there. When one of Gustave&#39;s lovers dies mysteriously, Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.</p>
-
-                  <p className="film-card__director"><strong>Director: Wes Anderson</strong></p>
-
-                  <p className="film-card__starring"><strong>Starring: Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other</strong></p>
-                </div>
+                <MovieTab film = {film} reviews = {reviews} />
               </div>
             </div>
           </div>
