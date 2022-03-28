@@ -10,6 +10,7 @@ const initialState: FilmData = {
   authorizationStatus: AuthorizationStatus.Unknown,
   filmCardsCount: FILM_CARDS_COUNT,
   film: null,
+  favorite: [],
   similarFilms: [],
   reviews: [],
   isDataSending: false,
@@ -40,6 +41,12 @@ export const filmData = createSlice({
     loadSimilarFilms: (state, action) => {
       state.similarFilms = action.payload;
     },
+    loadFavorite: (state, action) => {
+      state.favorite = action.payload;
+    },
+    changeFavoriteStatus: (state, action) => {
+      state.isDataSending = action.payload;
+    },
     loadReviews: (state, action) => {
       state.reviews = action.payload;
     },
@@ -61,4 +68,6 @@ export const {
   loadReviews,
   sendReview,
   setActiveFilm,
+  loadFavorite,
+  changeFavoriteStatus,
 } = filmData.actions;

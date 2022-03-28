@@ -5,14 +5,16 @@ import FilmCard from './film-card';
 import PageFooter from './page-footer';
 import { Link, useParams } from 'react-router-dom';
 import { fetchFilmAction, fetchReviewsAction, fetchSimilarFilmsAction } from '../store/api-actions';
-import { AuthorizationStatus } from '../const';
+import { AppRoute, AuthorizationStatus } from '../const';
 import LoadingScreen from './loading-screen';
 import MovieTab from './movie-tab';
+import UserPage from './user-page';
 
 function MoviePages(): JSX.Element {
   const dispatch = useAppDispatch();
   const params = useParams();
   const filmid = Number(params.id);
+  const authorizationStatus = useAppSelector(({ USER }) => USER.authorizationStatus);
 
   useEffect(() => {
     if (filmid) {
@@ -22,13 +24,12 @@ function MoviePages(): JSX.Element {
     }
   }, [dispatch, filmid]);
 
-  const authorizationStatus = useAppSelector(({ USER }) => USER.authorizationStatus);
-
   const { film, similarFilms, reviews } = useAppSelector(({ DATA }) => DATA);
 
   if (film) {
     const { id, name, posterImage, backgroundImage, genre, released } = film as Film;
     const filteredSimilarFilms = similarFilms?.filter((item) => item.id !== filmid);
+
     return (
       <React.Fragment>
         <section className="film-card film-card--full">
@@ -41,23 +42,14 @@ function MoviePages(): JSX.Element {
 
             <header className="page-header film-card__head">
               <div className="logo">
-                <Link to="main.html" className="logo__link">
+                <Link to={AppRoute.Main} className="logo__link">
                   <span className="logo__letter logo__letter--1">W</span>
                   <span className="logo__letter logo__letter--2">T</span>
                   <span className="logo__letter logo__letter--3">W</span>
                 </Link>
               </div>
 
-              <ul className="user-block">
-                <li className="user-block__item">
-                  <div className="user-block__avatar">
-                    <img src="img/Linkvatar.jpg" alt="User avatar" width="63" height="63" />
-                  </div>
-                </li>
-                <li className="user-block__item">
-                  <Link to="/login" className="user-block__link">Sign out</Link>
-                </li>
-              </ul>
+              < UserPage />
             </header>
             {film &&
               <div className="film-card__wrap">
@@ -81,11 +73,7 @@ function MoviePages(): JSX.Element {
                       </svg>
                       <span>My list</span>
                     </button>
-                    {
-                      authorizationStatus === AuthorizationStatus.Auth ?
-                        <Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>
-                        : ''
-                    }
+                    { authorizationStatus === AuthorizationStatus.Auth ?<Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>: ''}
                   </div>
                 </div>
               </div>}

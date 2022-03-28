@@ -1,19 +1,19 @@
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
-// import {useAppSelector} from '../../hooks/hooks';
 import {AppRoute} from '../../const';
 import { useAppSelector } from '../../hooks/hooks';
+import LoadingScreen from '../loading-screen';
 // import AddCard from '../add-card';
 import MainCard from '../main-card';
 import MoviePages from '../movie-pages';
-// import MyListPage from '../mylist-page';
+import MyListPage from '../mylist-page';
+import PrivateRoute from '../private-route';
 // import NotFoundPage from '../notfound-page';
 // import Player from '../player';
-// import PrivateRoute from '../private-route';
-import LoadingScreen from '../loading-screen';
 import SignIn from '../signin';
 
 function App(): JSX.Element {
-  const { isDataLoaded } = useAppSelector(({DATA}) => DATA);
+  const authorizationStatus = useAppSelector(({USER}) => USER.authorizationStatus);
+  const isDataLoaded= useAppSelector(({DATA}) => DATA);
 
   if (!isDataLoaded) {
     return (
@@ -41,16 +41,16 @@ function App(): JSX.Element {
         {/* <Route
           path={AppRoute.Player}
           element={<Player {...{films}}/>}
-        />
+        /> */}
         <Route
           path={AppRoute.MyList}
           element={
             <PrivateRoute authorizationStatus={authorizationStatus}>
-              <MyListPage {...{ filmsState, setCurrentFilm, setFilmsState}}/>
+              <MyListPage/>
             </PrivateRoute>
           }
         />
-        <Route
+        {/* <Route
           path={AppRoute.AddReview}
           element={<AddCard film={currentFilm}/>}
         />

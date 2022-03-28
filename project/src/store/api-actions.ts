@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { api, store } from './index';
 import { Film, Review } from '../types/types';
-import { loadFilm, loadFilms, loadPromoFilm, loadReviews, loadSimilarFilms } from './film-data';
+import { loadFavorite, loadFilm, loadFilms, loadPromoFilm, loadReviews, loadSimilarFilms } from './film-data';
 import { saveToken, dropToken } from '../services/token';
 import { APIRoute, AuthorizationStatus } from '../const';
-import { requireAuthorization } from './user-process';
+import { loadUserData, requireAuthorization } from './user-process';
 import { UserData, AuthData } from '../types/types';
 
 export const fetchFilmsAction = createAsyncThunk(
@@ -72,3 +72,20 @@ export const fetchSimilarFilmsAction = createAsyncThunk(
     store.dispatch(loadSimilarFilms(data));
   },
 );
+
+export const fetchUserData = createAsyncThunk(
+  'data/fetchUserData',
+  async () => {
+    const {data} = await api.get<UserData>(APIRoute.Login);
+    store.dispatch(loadUserData(data));
+  },
+);
+
+export const fetchFavoriteAction = createAsyncThunk(
+  'data/fetchFavoriteFilms',
+  async () => {
+    const {data} = await api.get<Film[]>(APIRoute.Favorite);
+    store.dispatch(loadFavorite(data));
+  },
+);
+

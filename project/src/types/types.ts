@@ -71,6 +71,7 @@ export type FilmData = {
   authorizationStatus: string,
   filmCardsCount: number,
   film: Film | null,
+  favorite: Film[],
   reviews: Review[],
   isDataSending: boolean,
 };

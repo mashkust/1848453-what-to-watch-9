@@ -38,6 +38,13 @@ export enum RATING {
   AWESOME = 'Awesome',
 }
 
+export enum GRADE {
+  BAD = 3,
+  NORMAL = 5,
+  GOOD = 8,
+  VERY_GOOD = 10,
+}
+
 export const DEFAULT_GENRE = 'All genres';
 export const PREVIEW_TIMEOUT= 1000;
 export const FILM_CARDS_COUNT = 8;
