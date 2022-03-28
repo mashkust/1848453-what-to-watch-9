@@ -15,6 +15,7 @@ function MyListPage(): JSX.Element {
   }, [dispatch]);
 
   const favoriteFilms = useAppSelector(({DATA}) => DATA.favorite);
+
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -31,7 +32,7 @@ function MyListPage(): JSX.Element {
         <ul className="user-block">
           <li className="user-block__item">
             <div className="user-block__avatar">
-              <img src="img/Linkvatar.jpg" alt="User avatar" width="63" height="63" />
+              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
             </div>
           </li>
           <li className="user-block__item">

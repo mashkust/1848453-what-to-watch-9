@@ -6,8 +6,8 @@ import LoadingScreen from '../loading-screen';
 import MainCard from '../main-card';
 import MoviePages from '../movie-pages';
 import MyListPage from '../mylist-page';
+import NotFoundPage from '../notfound-page';
 import PrivateRoute from '../private-route';
-// import NotFoundPage from '../notfound-page';
 // import Player from '../player';
 import SignIn from '../signin';
 
@@ -53,11 +53,11 @@ function App(): JSX.Element {
         {/* <Route
           path={AppRoute.AddReview}
           element={<AddCard film={currentFilm}/>}
-        />
+        /> */}
         <Route
           path="*"
           element={<NotFoundPage/>}
-        /> */}
+        />
       </Routes>
     </BrowserRouter>
   );

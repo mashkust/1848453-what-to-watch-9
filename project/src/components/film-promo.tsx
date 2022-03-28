@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom';
 import type {Film} from '../types/types';
+import FavoriteButton from './favorite-button';
 import UserPage from './user-page';
 
 type FilmPromoProps = {
@@ -7,7 +8,7 @@ type FilmPromoProps = {
 };
 
 function FilmPromo({promoFilm}: FilmPromoProps): JSX.Element {
-  const { name, genre, released, posterImage, backgroundImage} = promoFilm;
+  const { name, genre, released, posterImage, backgroundImage, id, isFavorite} = promoFilm;
 
   return (
     <section className="film-card">
@@ -48,12 +49,7 @@ function FilmPromo({promoFilm}: FilmPromoProps): JSX.Element {
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list film-card__button" type="button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"></use>
-                </svg>
-                <span>My list</span>
-              </button>
+              <FavoriteButton {...{id, isFavorite}} />
             </div>
           </div>
         </div>

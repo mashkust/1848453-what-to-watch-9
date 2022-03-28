@@ -9,6 +9,7 @@ import { AppRoute, AuthorizationStatus } from '../const';
 import LoadingScreen from './loading-screen';
 import MovieTab from './movie-tab';
 import UserPage from './user-page';
+import FavoriteButton from './favorite-button';
 
 function MoviePages(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -27,7 +28,7 @@ function MoviePages(): JSX.Element {
   const { film, similarFilms, reviews } = useAppSelector(({ DATA }) => DATA);
 
   if (film) {
-    const { id, name, posterImage, backgroundImage, genre, released } = film as Film;
+    const { id, name, posterImage, backgroundImage, genre, released, isFavorite } = film as Film;
     const filteredSimilarFilms = similarFilms?.filter((item) => item.id !== filmid);
 
     return (
@@ -67,12 +68,7 @@ function MoviePages(): JSX.Element {
                       </svg>
                       <span>Play</span>
                     </button>
-                    <button className="btn btn--list film-card__button" type="button">
-                      <svg viewBox="0 0 19 20" width="19" height="20">
-                        <use xlinkHref="#add"></use>
-                      </svg>
-                      <span>My list</span>
-                    </button>
+                    <FavoriteButton {...{id, isFavorite}}/>
                     { authorizationStatus === AuthorizationStatus.Auth ?<Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>: ''}
                   </div>
                 </div>

@@ -55,6 +55,7 @@ export type Review = {
 export type UserProcess = {
   authorizationStatus: AuthorizationStatus,
   userData: UserData | object,
+  errorText: null | string,
 };
 
 export type FilmProcess = {

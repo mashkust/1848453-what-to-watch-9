@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { api, store } from './index';
 import { Film, Review } from '../types/types';
-import { loadFavorite, loadFilm, loadFilms, loadPromoFilm, loadReviews, loadSimilarFilms } from './film-data';
+import { changeFavoriteStatus, loadFavorite, loadFilm, loadFilms, loadPromoFilm, loadReviews, loadSimilarFilms } from './film-data';
 import { saveToken, dropToken } from '../services/token';
 import { APIRoute, AuthorizationStatus } from '../const';
 import { loadUserData, requireAuthorization } from './user-process';
@@ -89,3 +89,12 @@ export const fetchFavoriteAction = createAsyncThunk(
   },
 );
 
+export const changeFavoriteStatusAction = createAsyncThunk(
+  'data/changeFavoriteFilmStatus',
+  async ({filmid, status}: {filmid: number, status: number}) => {
+    await api.post<Film>(`${APIRoute.Favorite}/${filmid}/${status}`);
+    store.dispatch(fetchPromoFilmAction());
+    store.dispatch(fetchFilmAction(filmid));
+    store.dispatch(changeFavoriteStatus(false));
+  },
+);

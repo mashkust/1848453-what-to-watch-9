@@ -14,8 +14,7 @@ function ListGenres({genres}: ListGenresProps): JSX.Element {
     <>
       {genres.map((genre) => (
         <li
-          key = {genre}
-          className = {`catalog__genres-item ${genre === activeGenre ? 'catalog__genres-item--active' : ''}`}
+          key = {genre} className = {`catalog__genres-item ${genre === activeGenre ? 'catalog__genres-item--active' : ''}`}
           onClick = {() => {
             dispatch(setActiveGenre(genre));
             dispatch(resetCountAction());

@@ -15,33 +15,16 @@ function UserPage(): JSX.Element {
           <>
             <li className="user-block__item">
               <div className="user-block__avatar">
-                <img
-                  src="img/avatar.jpg"
-                  alt="User avatar"
-                  width="63"
-                  height="63"
-                  onClick = {() => navigate(AppRoute.MyList)}
-                />
+                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" onClick = {() => navigate(AppRoute.MyList)}/>
               </div>
             </li>
             <li className="user-block__item">
-              <Link
-                className="user-block__link"
-                to = {''}
-                onClick = {() => dispatch(logoutAction())}
-              >
-                Sign out
-              </Link>
+              <Link className="user-block__link" to = {''} onClick = {() => dispatch(logoutAction())}> Sign out </Link>
             </li>
           </>
           :
           <li className="user-block__item">
-            <Link
-              className="user-block__link"
-              to={AppRoute.SignIn}
-            >
-              Sign in
-            </Link>
+            <Link className="user-block__link" to={AppRoute.SignIn} > Sign in </Link>
           </li>
       }
     </ul>
