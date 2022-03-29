@@ -7,7 +7,16 @@ import {UserProcess} from '../types/types';
 const initialState: UserProcess = {
   authorizationStatus: AuthorizationStatus.Unknown,
   userData: {},
+  errorText: null,
 };
+
+export interface SetErrorTextAction {
+  type: string;
+  payload: {
+    text: string | null;
+  }
+
+}
 
 export const userProcess = createSlice({
   name: NameSpace.user,
@@ -19,7 +28,10 @@ export const userProcess = createSlice({
     loadUserData: (state, action) => {
       state.userData = action.payload;
     },
+    setErrorText: (state, action:SetErrorTextAction ) => {
+      state.errorText = action.payload.text;
+    },
   },
 });
 
-export const {requireAuthorization, loadUserData} = userProcess.actions;
+export const {requireAuthorization, loadUserData, setErrorText} = userProcess.actions;

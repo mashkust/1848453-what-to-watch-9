@@ -6,6 +6,7 @@ type DetailsTabProps = {
 
 function Details({film}: DetailsTabProps): JSX.Element {
   const { director, starring, genre, released} = film as Film;
+
   return (
     <div className="film-card__text film-card__row">
       <div className="film-card__text-col">

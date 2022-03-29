@@ -1,13 +1,15 @@
 import {Link} from 'react-router-dom';
 import type {Film} from '../types/types';
+import FavoriteButton from './favorite-button';
+import UserPage from './user-page';
 
 type FilmPromoProps = {
   promoFilm: Film;
 };
 
-
 function FilmPromo({promoFilm}: FilmPromoProps): JSX.Element {
-  const { name, genre, released, posterImage, backgroundImage} = promoFilm;
+  const { name, genre, released, posterImage, backgroundImage, id, isFavorite} = promoFilm;
+
   return (
     <section className="film-card">
       <div className="film-card__bg">
@@ -24,17 +26,7 @@ function FilmPromo({promoFilm}: FilmPromoProps): JSX.Element {
             <span className="logo__letter logo__letter--3">W</span>
           </Link>
         </div>
-
-        <ul className="user-block">
-          <li className="user-block__item">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-            </div>
-          </li>
-          <li className="user-block__item">
-            <Link to="/login" className="user-block__link">Sign out</Link>
-          </li>
-        </ul>
+        <UserPage/>
       </header>
 
       <div className="film-card__wrap">
@@ -57,12 +49,7 @@ function FilmPromo({promoFilm}: FilmPromoProps): JSX.Element {
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list film-card__button" type="button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"></use>
-                </svg>
-                <span>My list</span>
-              </button>
+              <FavoriteButton {...{id, isFavorite}} />
             </div>
           </div>
         </div>

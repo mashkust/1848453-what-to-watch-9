@@ -12,7 +12,6 @@ import {fetchPromoFilmAction} from '../store/api-actions';
 
 function MainCard(): JSX.Element {
   const promoFilmCard = useAppSelector(({DATA}) => DATA.promoFilm);
-
   const dispatch = useAppDispatch();
   const initialFilms = useAppSelector(({DATA}) => DATA.films);
   const {

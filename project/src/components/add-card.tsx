@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
+import { AppRoute } from '../const';
 import type {Film} from '../types/types';
 
 type AddReviewProps = {
@@ -8,6 +9,7 @@ type AddReviewProps = {
 
 function AddCard({film}: AddReviewProps): JSX.Element {
   const [text, setText] = useState<string>('');
+
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
@@ -19,7 +21,7 @@ function AddCard({film}: AddReviewProps): JSX.Element {
 
         <header className="page-header">
           <div className="logo">
-            <Link to="main.html" className="logo__link">
+            <Link to={AppRoute.Main} className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>

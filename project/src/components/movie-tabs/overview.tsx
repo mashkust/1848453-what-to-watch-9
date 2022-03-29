@@ -1,4 +1,4 @@
-import { RATING } from '../../const';
+import { GRADE, RATING } from '../../const';
 import { Film } from '../../types/types';
 
 type OverviewTabProps = {
@@ -6,16 +6,16 @@ type OverviewTabProps = {
 }
 
 const getRating = (rating: number) => {
-  if (rating < 3) {
+  if (rating < GRADE.BAD) {
     return RATING.BAD;
   }
-  if (rating < 5) {
+  if (rating < GRADE.NORMAL) {
     return RATING.NORMAL;
   }
-  if (rating < 8) {
+  if (rating < GRADE.GOOD) {
     return RATING.GOOD;
   }
-  if (rating < 10) {
+  if (rating < GRADE.VERY_GOOD) {
     return RATING.VERY_GOOD;
   }
   return RATING.AWESOME;

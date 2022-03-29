@@ -12,10 +12,11 @@ type FilmCardProps = {
   film: Film;
 }
 
-
 function FilmCard({film}: FilmCardProps): JSX.Element {
   const dispatch = useAppDispatch();
+
   const { videoLink, previewImage, isActive, id,name} = film;
+
   return (
     <article
       onMouseEnter={
