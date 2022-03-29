@@ -29,7 +29,7 @@ function MoviePages(): JSX.Element {
 
   if (film) {
     const { id, name, posterImage, backgroundImage, genre, released, isFavorite } = film as Film;
-    const filteredSimilarFilms = similarFilms?.filter((item) => item.id !== filmid);
+    const filteredSimilarFilms = similarFilms.filter((somefilm) => somefilm.id !== filmid);
 
     return (
       <React.Fragment>

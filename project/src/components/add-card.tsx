@@ -1,14 +1,42 @@
-import {useState} from 'react';
-import {Link} from 'react-router-dom';
-import { AppRoute } from '../const';
+import React from 'react';
+import {useEffect, useState} from 'react';
+import {Link, useNavigate, useParams} from 'react-router-dom';
+import { AppRoute, AuthorizationStatus, RATING_VALUES } from '../const';
+import { useAppDispatch, useAppSelector } from '../hooks/hooks';
+import { fetchUserData, sendReviewAction } from '../store/api-actions';
+import { sendReview } from '../store/film-data';
 import type {Film} from '../types/types';
+import UserPage from './user-page';
 
 type AddReviewProps = {
-  film:Film | null;
+  films:Film [];
 };
 
-function AddCard({film}: AddReviewProps): JSX.Element {
-  const [text, setText] = useState<string>('');
+function AddCard({films}: AddReviewProps): JSX.Element {
+  const params = useParams();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const film = films.find((somefilm) => somefilm.id === Number(params.id));
+
+  const authorizationStatus = useAppSelector(({USER}) => USER.authorizationStatus);
+
+  useEffect(() => {
+    if (authorizationStatus !== AuthorizationStatus.Auth) {
+      navigate(AppRoute.SignIn);
+    }
+    dispatch(fetchUserData());
+  }, [navigate, authorizationStatus, dispatch]);
+
+  const [rating, setRating] = useState<number>(1);
+  const [text, setText] = useState('');
+  const [isRating, setIsRating] = useState<boolean>(false);
+
+  const isReviewSending = useAppSelector(({DATA}) => DATA.isDataSending);
+
+  const ratingChangeHandler = (userRating: number) => {
+    setRating(userRating);
+    setIsRating(true);
+  };
 
   return (
     <section className="film-card film-card--full">
@@ -30,25 +58,16 @@ function AddCard({film}: AddReviewProps): JSX.Element {
 
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
-              <li className="breadcrumbs__item">
+              <li className="breadcrumbs__el">
                 <Link to="film-page.html" className="breadcrumbs__link">{ film ? film.name :''}</Link>
               </li>
-              <li className="breadcrumbs__item">
+              <li className="breadcrumbs__el">
                 <a className="breadcrumbs__link">Add review</a>
               </li>
             </ul>
           </nav>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          <UserPage />
         </header>
 
         <div className="film-card__poster film-card__poster--small">
@@ -59,49 +78,36 @@ function AddCard({film}: AddReviewProps): JSX.Element {
       <div className="add-review">
         <form onSubmit={(evt: React.FormEvent<HTMLFormElement>)=> {
           evt.preventDefault();
-          setText('');
+          dispatch(sendReview(true));
+          dispatch(sendReviewAction({
+            filmId: Number(params.id as string),
+            comment: text,
+            rating: rating,
+          }));
+          navigate(`/films/${params.id}`);
         }} action="#" className="add-review__form"
         >
           <div className="rating">
             <div className="rating__stars">
-              <input className="rating__input" id="star-10" type="radio" name="rating" value="10" />
-              <label className="rating__label" htmlFor="star-10">Rating 10</label>
-
-              <input className="rating__input" id="star-9" type="radio" name="rating" value="9" />
-              <label className="rating__label" htmlFor="star-9">Rating 9</label>
-
-              <input className="rating__input" id="star-8" type="radio" name="rating" value="8" checked />
-              <label className="rating__label" htmlFor="star-8">Rating 8</label>
-
-              <input className="rating__input" id="star-7" type="radio" name="rating" value="7" />
-              <label className="rating__label" htmlFor="star-7">Rating 7</label>
-
-              <input className="rating__input" id="star-6" type="radio" name="rating" value="6" />
-              <label className="rating__label" htmlFor="star-6">Rating 6</label>
-
-              <input className="rating__input" id="star-5" type="radio" name="rating" value="5" />
-              <label className="rating__label" htmlFor="star-5">Rating 5</label>
-
-              <input className="rating__input" id="star-4" type="radio" name="rating" value="4" />
-              <label className="rating__label" htmlFor="star-4">Rating 4</label>
-
-              <input className="rating__input" id="star-3" type="radio" name="rating" value="3" />
-              <label className="rating__label" htmlFor="star-3">Rating 3</label>
-
-              <input className="rating__input" id="star-2" type="radio" name="rating" value="2" />
-              <label className="rating__label" htmlFor="star-2">Rating 2</label>
-
-              <input className="rating__input" id="star-1" type="radio" name="rating" value="1" />
-              <label className="rating__label" htmlFor="star-1">Rating 1</label>
+              {RATING_VALUES.map((el) => (
+                <React.Fragment key={el.value}>
+                  <input className = "rating__input"  key = {el.value} id = {`star-${el.value}`} type = "radio"
+                    name = "rating" value = {el.value} checked = {rating === el.value}
+                    onChange = {(evt) => ratingChangeHandler(Number(evt.target.value))} disabled = {isReviewSending}
+                  />
+                  <label className = "rating__label" htmlFor = {`star-${el.value}`}>
+                    Rating {el.value}
+                  </label>
+                </React.Fragment>
+              ))}
             </div>
           </div>
-
           <div className="add-review__text">
             <textarea value={text} onChange = {(evt: React.ChangeEvent<HTMLTextAreaElement>) => setText(evt.currentTarget.value)}
-              className="add-review__textarea" name="review-text" id="review-text" placeholder="Введите..."
+              className="add-review__textarea" name="review-text" id="review-text" placeholder="Введите..." disabled = {isReviewSending}
             />
             <div className="add-review__submit">
-              <button className="add-review__btn" type="submit">Post</button>
+              <button className="add-review__btn" type="submit" disabled = {text.length < 50 || text.length > 400 || !isRating || isReviewSending}>Post</button>
             </div>
 
           </div>
@@ -112,3 +118,5 @@ function AddCard({film}: AddReviewProps): JSX.Element {
 }
 
 export default AddCard;
+
+

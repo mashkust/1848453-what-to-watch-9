@@ -1,3 +1,5 @@
+import { Rating, Tab } from './types/types';
+
 export enum AppRoute {
   Main = '/',
   SignIn = '/login',
@@ -44,6 +46,34 @@ export enum GRADE {
   GOOD = 8,
   VERY_GOOD = 10,
 }
+
+export const RATING_VALUES: Rating[] = [
+  {'value': 10},
+  {'value': 9},
+  {'value': 8},
+  {'value': 7},
+  {'value': 6},
+  {'value': 5},
+  {'value': 4},
+  {'value': 3},
+  {'value': 2},
+  {'value': 1},
+];
+
+export const movieTab: Tab[] = [
+  {
+    id: 1,
+    title: 'Overview',
+  },
+  {
+    id: 2,
+    title: 'Details',
+  },
+  {
+    id: 3,
+    title: 'Reviews',
+  },
+];
 
 export const DEFAULT_GENRE = 'All genres';
 export const PREVIEW_TIMEOUT= 1000;

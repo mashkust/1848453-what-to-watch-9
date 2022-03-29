@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { api, store } from './index';
-import { Film, Review } from '../types/types';
-import { changeFavoriteStatus, loadFavorite, loadFilm, loadFilms, loadPromoFilm, loadReviews, loadSimilarFilms } from './film-data';
+import { Film, NewReview, Review } from '../types/types';
+import { changeFavoriteStatus, loadFavorite, loadFilm, loadFilms, loadPromoFilm, loadReviews, loadSimilarFilms, sendReview } from './film-data';
 import { saveToken, dropToken } from '../services/token';
 import { APIRoute, AuthorizationStatus } from '../const';
 import { loadUserData, requireAuthorization } from './user-process';
@@ -89,12 +89,20 @@ export const fetchFavoriteAction = createAsyncThunk(
   },
 );
 
-export const changeFavoriteStatusAction = createAsyncThunk(
+export const changeFavoriteAction = createAsyncThunk(
   'data/changeFavoriteFilmStatus',
-  async ({filmid, status}: {filmid: number, status: number}) => {
-    await api.post<Film>(`${APIRoute.Favorite}/${filmid}/${status}`);
+  async ({filmId, status}: {filmId: number, status: number}) => {
+    await api.post<Film>(`${APIRoute.Favorite}/${filmId}/${status}`);
     store.dispatch(fetchPromoFilmAction());
-    store.dispatch(fetchFilmAction(filmid));
+    store.dispatch(fetchFilmAction(filmId));
     store.dispatch(changeFavoriteStatus(false));
+  },
+);
+
+export const sendReviewAction = createAsyncThunk(
+  'data/sendNewReview',
+  async ({filmId, comment, rating}: NewReview) => {
+    await api.post<NewReview>(`${APIRoute.Comments}${filmId}`, {comment, rating});
+    store.dispatch(sendReview(false));
   },
 );

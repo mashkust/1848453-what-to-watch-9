@@ -4,33 +4,14 @@ import { Film, Review } from '../types/types';
 import Overview from './movie-tabs/overview';
 import Details from './movie-tabs/details';
 import Reviews from './movie-tabs/reviews';
+import { movieTab } from '../const';
 
 type MovieTabProps = {
   film: Film | object,
   reviews: Review[],
 }
 
-type Tab = {
-  id: number;
-  title: string;
-}
-
 function MovieTab({film, reviews}: MovieTabProps): JSX.Element {
-  const movieTab: Tab[] = [
-    {
-      id: 1,
-      title: 'Overview',
-    },
-    {
-      id: 2,
-      title: 'Details',
-    },
-    {
-      id: 3,
-      title: 'Reviews',
-    },
-  ];
-
   const [activeTab, setActiveTab] = useState<number>(1);
 
   const handleClick = (id: number) => {
