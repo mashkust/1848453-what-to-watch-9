@@ -81,6 +81,7 @@ export type FilmData = {
   favorite: Film[],
   reviews: Review[],
   isDataSending: boolean,
+  error:string,
 };
 
 export type Tab = {
@@ -91,3 +92,5 @@ export type Tab = {
 export type Rating = {
   value: number;
 }
+
+export type ErrorType = unknown;

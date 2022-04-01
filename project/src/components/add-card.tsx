@@ -5,6 +5,7 @@ import { AppRoute, AuthorizationStatus, RATING_VALUES } from '../const';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { fetchUserData, sendReviewAction } from '../store/api-actions';
 import { sendReview } from '../store/film-data';
+import { setErrorText } from '../store/user-process';
 import type {Film} from '../types/types';
 import UserPage from './user-page';
 
@@ -27,11 +28,11 @@ function AddCard({films}: AddReviewProps): JSX.Element {
     dispatch(fetchUserData());
   }, [navigate, authorizationStatus, dispatch]);
 
+  const errorText = useAppSelector(({USER}) => USER.errorText);
+  const isReviewSending = useAppSelector(({DATA}) => DATA.isDataSending);
   const [rating, setRating] = useState<number>(1);
   const [text, setText] = useState('');
   const [isRating, setIsRating] = useState<boolean>(false);
-
-  const isReviewSending = useAppSelector(({DATA}) => DATA.isDataSending);
 
   const ratingChangeHandler = (userRating: number) => {
     setRating(userRating);
@@ -103,14 +104,20 @@ function AddCard({films}: AddReviewProps): JSX.Element {
             </div>
           </div>
           <div className="add-review__text">
-            <textarea value={text} onChange = {(evt: React.ChangeEvent<HTMLTextAreaElement>) => setText(evt.currentTarget.value)}
-              className="add-review__textarea" name="review-text" id="review-text" placeholder="Введите..." disabled = {isReviewSending}
+            <textarea value={text} onChange = {(evt: React.ChangeEvent<HTMLTextAreaElement>) => {
+              setText(evt.currentTarget.value);
+              if  (text.length < 50 || text.length > 400) {
+                dispatch( setErrorText({ text: 'Отзыв должен содержать от 50 до 400 символов. Поставьте оценку.'}));}
+              else {
+                dispatch( setErrorText({ text:null}));
+              }
+            }}className="add-review__textarea" name="review-text" id="review-text" placeholder="Введите..." disabled = {isReviewSending}
             />
             <div className="add-review__submit">
               <button className="add-review__btn" type="submit" disabled = {text.length < 50 || text.length > 400 || !isRating || isReviewSending}>Post</button>
             </div>
-
           </div>
+          {errorText && <p className='add-review__textarea'> {errorText} </p>}
         </form>
       </div>
     </section>

@@ -14,6 +14,7 @@ const initialState: FilmData = {
   similarFilms: [],
   reviews: [],
   isDataSending: false,
+  error:'',
 };
 
 export interface SetActiveFilmAction {
@@ -57,6 +58,9 @@ export const filmData = createSlice({
       const { isMouseOver, id } = action.payload;
       state.films.map((film) => {film.isActive =  isMouseOver ? false : film.id ===id; return film; });
     },
+    setError: (state, action) => {
+      state.error = action.payload;
+    },
   },
 });
 
@@ -70,4 +74,5 @@ export const {
   setActiveFilm,
   loadFavorite,
   changeFavoriteStatus,
+  setError,
 } = filmData.actions;

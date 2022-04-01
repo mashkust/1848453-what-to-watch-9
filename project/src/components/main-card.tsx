@@ -14,10 +14,7 @@ function MainCard(): JSX.Element {
   const promoFilmCard = useAppSelector(({DATA}) => DATA.promoFilm);
   const dispatch = useAppDispatch();
   const initialFilms = useAppSelector(({DATA}) => DATA.films);
-  const {
-    activeGenre,
-    filmCardsCount,
-  } = useAppSelector(({FILM}) => FILM);
+  const { activeGenre, filmCardsCount} = useAppSelector(({FILM}) => FILM);
 
   const filteredFilms = activeGenre === DEFAULT_GENRE ? initialFilms : initialFilms.filter((film) => film.genre === activeGenre);
 
@@ -30,7 +27,6 @@ function MainCard(): JSX.Element {
   useEffect(() => {
     dispatch(fetchPromoFilmAction());
   }, [dispatch]);
-
 
   return (
     <React.Fragment>

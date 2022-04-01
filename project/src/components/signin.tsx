@@ -5,7 +5,6 @@ import {loginAction} from '../store/api-actions';
 import {AppRoute, AuthorizationStatus} from '../const';
 import { AuthData } from '../types/types';
 import PageFooter from './page-footer';
-import React from 'react';
 import { setErrorText } from '../store/user-process';
 
 function SignIn(): JSX.Element {
@@ -76,12 +75,7 @@ function SignIn(): JSX.Element {
           </div>
         </form>
       </div>
-      <footer className="page-footer">
-        <PageFooter />
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <PageFooter />
     </div>
   );
 }

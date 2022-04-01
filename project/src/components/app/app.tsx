@@ -8,8 +8,8 @@ import MoviePages from '../movie-pages';
 import MyListPage from '../mylist-page';
 import NotFoundPage from '../notfound-page';
 import PrivateRoute from '../private-route';
-import Player from '../player';
 import SignIn from '../signin';
+import Player from '../player';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(({USER}) => USER.authorizationStatus);
