@@ -51,7 +51,6 @@ function MoviePages(): JSX.Element {
                   <span className="logo__letter logo__letter--3">W</span>
                 </Link>
               </div>
-
               < UserPage />
             </header>
             <ToastContainer />

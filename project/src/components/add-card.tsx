@@ -61,10 +61,10 @@ function AddCard({films}: AddReviewProps): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__el">
-                <Link to="film-page.html" className="breadcrumbs__link">{ film ? film.name :''}</Link>
+                <Link to={AppRoute.Film} className="breadcrumbs__link">{ film ? film.name :''} </Link>
               </li>
               <li className="breadcrumbs__el">
-                <a className="breadcrumbs__link">Add review</a>
+                <a className="breadcrumbs__link"> Add review</a>
               </li>
             </ul>
           </nav>

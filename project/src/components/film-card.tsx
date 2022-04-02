@@ -23,8 +23,6 @@ function FilmCard({film}: FilmCardProps): JSX.Element {
     <article
       onMouseEnter={
         () => {
-          // eslint-disable-next-line no-console
-          console.log('тут',film.id);
           const activeFilm = () => {dispatch(setActiveFilm({ id: film.id, isMouseOver: false}));};
           timeout= window.setTimeout(() => {
             activeFilm ();

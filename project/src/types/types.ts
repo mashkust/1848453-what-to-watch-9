@@ -81,7 +81,6 @@ export type FilmData = {
   favorite: Film[],
   reviews: Review[],
   isDataSending: boolean,
-  error:string,
 };
 
 export type Tab = {
