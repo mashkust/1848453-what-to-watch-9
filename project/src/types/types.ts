@@ -52,6 +52,12 @@ export type Review = {
   };
 };
 
+export type NewReview = {
+  filmId: number,
+  comment: string,
+  rating: number,
+};
+
 export type UserProcess = {
   authorizationStatus: AuthorizationStatus,
   userData: UserData | object,
@@ -76,3 +82,14 @@ export type FilmData = {
   reviews: Review[],
   isDataSending: boolean,
 };
+
+export type Tab = {
+  id: number;
+  title: string;
+}
+
+export type Rating = {
+  value: number;
+}
+
+export type ErrorType = unknown;

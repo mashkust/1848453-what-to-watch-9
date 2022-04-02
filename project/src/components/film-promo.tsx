@@ -1,4 +1,5 @@
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
+import { AppRoute } from '../const';
 import type {Film} from '../types/types';
 import FavoriteButton from './favorite-button';
 import UserPage from './user-page';
@@ -9,6 +10,7 @@ type FilmPromoProps = {
 
 function FilmPromo({promoFilm}: FilmPromoProps): JSX.Element {
   const { name, genre, released, posterImage, backgroundImage, id, isFavorite} = promoFilm;
+  const navigate = useNavigate();
 
   return (
     <section className="film-card">
@@ -20,7 +22,7 @@ function FilmPromo({promoFilm}: FilmPromoProps): JSX.Element {
 
       <header className="page-header film-card__head">
         <div className="logo">
-          <Link to="/" className="logo__link">
+          <Link to={AppRoute.Main} className="logo__link">
             <span className="logo__letter logo__letter--1">W</span>
             <span className="logo__letter logo__letter--2">T</span>
             <span className="logo__letter logo__letter--3">W</span>
@@ -43,7 +45,7 @@ function FilmPromo({promoFilm}: FilmPromoProps): JSX.Element {
             </p>
 
             <div className="film-card__buttons">
-              <button className="btn btn--play film-card__button" type="button">
+              <button className="btn btn--play film-card__button" type="button" onClick = {() => navigate(`/player/${id}`)}>
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>

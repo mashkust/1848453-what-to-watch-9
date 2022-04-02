@@ -1,5 +1,5 @@
 import {useAppDispatch} from '../hooks/hooks';
-import {changeFavoriteStatusAction} from '../store/api-actions';
+import {changeFavoriteAction} from '../store/api-actions';
 
 type FavoriteButtonProps = {
   id: number;
@@ -11,8 +11,8 @@ function FavoriteButton({id, isFavorite}: FavoriteButtonProps): JSX.Element {
 
   const favoriteButtonHandler = () => {
     dispatch(
-      changeFavoriteStatusAction({
-        filmid: id,
+      changeFavoriteAction({
+        filmId: id,
         status: isFavorite ? Number(false) : Number(true),
       }),
     );

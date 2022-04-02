@@ -3,17 +3,19 @@ import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { Film } from '../types/types';
 import FilmCard from './film-card';
 import PageFooter from './page-footer';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { fetchFilmAction, fetchReviewsAction, fetchSimilarFilmsAction } from '../store/api-actions';
 import { AppRoute, AuthorizationStatus } from '../const';
 import LoadingScreen from './loading-screen';
 import MovieTab from './movie-tab';
 import UserPage from './user-page';
 import FavoriteButton from './favorite-button';
+import { ToastContainer } from 'react-toastify';
 
 function MoviePages(): JSX.Element {
   const dispatch = useAppDispatch();
   const params = useParams();
+  const navigate = useNavigate();
   const filmid = Number(params.id);
   const authorizationStatus = useAppSelector(({ USER }) => USER.authorizationStatus);
 
@@ -29,7 +31,7 @@ function MoviePages(): JSX.Element {
 
   if (film) {
     const { id, name, posterImage, backgroundImage, genre, released, isFavorite } = film as Film;
-    const filteredSimilarFilms = similarFilms?.filter((item) => item.id !== filmid);
+    const filteredSimilarFilms = similarFilms.filter((somefilm) => somefilm.id !== filmid);
 
     return (
       <React.Fragment>
@@ -49,9 +51,9 @@ function MoviePages(): JSX.Element {
                   <span className="logo__letter logo__letter--3">W</span>
                 </Link>
               </div>
-
               < UserPage />
             </header>
+            <ToastContainer />
             {film &&
               <div className="film-card__wrap">
                 <div className="film-card__desc">
@@ -62,11 +64,11 @@ function MoviePages(): JSX.Element {
                   </p>
 
                   <div className="film-card__buttons">
-                    <button className="btn btn--play film-card__button" type="button">
+                    <button className="btn btn--play film-card__button" type="button" onClick = {() => navigate(`/player/${id}`)}>
                       <svg viewBox="0 0 19 19" width="19" height="19">
                         <use xlinkHref="#play-s"></use>
                       </svg>
-                      <span>Play</span>
+                      <span >Play</span>
                     </button>
                     <FavoriteButton {...{id, isFavorite}}/>
                     { authorizationStatus === AuthorizationStatus.Auth ?<Link to={`/films/${id}/review`} className="btn film-card__button">Add review</Link>: ''}
@@ -92,7 +94,7 @@ function MoviePages(): JSX.Element {
           <section className="catalog catalog--like-this">
             <h2 className="catalog__title">More like this</h2>
             <div className="catalog__films-list">
-              {filteredSimilarFilms && filteredSimilarFilms.map((el: Film) => (
+              {filteredSimilarFilms && filteredSimilarFilms.slice().map((el: Film) => (
                 <FilmCard film={el} key={el.id} />))}
             </div>
           </section>
