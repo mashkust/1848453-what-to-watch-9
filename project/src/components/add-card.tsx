@@ -1,6 +1,7 @@
 import React from 'react';
 import {useEffect, useState} from 'react';
 import {Link, useNavigate, useParams} from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import { AppRoute, AuthorizationStatus, RATING_VALUES } from '../const';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import { fetchUserData, sendReviewAction } from '../store/api-actions';
@@ -70,7 +71,7 @@ function AddCard({films}: AddReviewProps): JSX.Element {
 
           <UserPage />
         </header>
-
+        <ToastContainer/>
         <div className="film-card__poster film-card__poster--small">
           <img src={ film ? film.posterImage:''} alt={ film ? film.name :''} width="218" height="327" />
         </div>

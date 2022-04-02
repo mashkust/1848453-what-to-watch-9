@@ -1,13 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { api, store } from './index';
 import { Film, NewReview, Review } from '../types/types';
-import { changeFavoriteStatus, loadFavorite, loadFilm, loadFilms, loadPromoFilm, loadReviews, loadSimilarFilms, sendReview } from './film-data';
+import { changeFavoriteStatus, loadFavorite, loadFilm, loadFilms, loadPromoFilm, loadReviews, loadSimilarFilms, sendReview} from './film-data';
 import { saveToken, dropToken } from '../services/token';
 import { APIRoute, AuthorizationStatus } from '../const';
 import { loadUserData, requireAuthorization } from './user-process';
 import { UserData, AuthData } from '../types/types';
 import {errorHandle} from '../services/error-handle';
-
 
 export const fetchFilmsAction = createAsyncThunk(
   'data/fetchFilms',

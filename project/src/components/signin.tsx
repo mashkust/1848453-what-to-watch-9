@@ -6,6 +6,8 @@ import {AppRoute, AuthorizationStatus} from '../const';
 import { AuthData } from '../types/types';
 import PageFooter from './page-footer';
 import { setErrorText } from '../store/user-process';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function SignIn(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -57,6 +59,7 @@ function SignIn(): JSX.Element {
         </Link>
         <h1 className="page-title user-page__title">Sign in</h1>
       </header>
+      <ToastContainer/>
       <div className="sign-in user-page__content">
         <form action="" className="sign-in__form" onSubmit = {handleSubmit}>
           <div className="sign-in__fields">

@@ -1,11 +1,13 @@
 import {useEffect} from 'react';
 import { Link } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import { AppRoute } from '../const';
 import { useAppSelector, useAppDispatch } from '../hooks/hooks';
 import { fetchFavoriteAction } from '../store/api-actions';
 import { Film } from '../types/types';
 import FilmCard from './film-card';
 import PageFooter from './page-footer';
+import UserPage from './user-page';
 
 function MyListPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -26,21 +28,9 @@ function MyListPage(): JSX.Element {
             <span className="logo__letter logo__letter--3">W</span>
           </Link>
         </div>
-
-        <h1 className="page-title user-page__title">My list</h1>
-
-        <ul className="user-block">
-          <li className="user-block__item">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-            </div>
-          </li>
-          <li className="user-block__item">
-            <Link to="/" className="user-block__link">Sign out</Link>
-          </li>
-        </ul>
+        < UserPage />
       </header>
-
+      <ToastContainer />
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 

@@ -10,6 +10,7 @@ import LoadingScreen from './loading-screen';
 import MovieTab from './movie-tab';
 import UserPage from './user-page';
 import FavoriteButton from './favorite-button';
+import { ToastContainer } from 'react-toastify';
 
 function MoviePages(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -53,6 +54,7 @@ function MoviePages(): JSX.Element {
 
               < UserPage />
             </header>
+            <ToastContainer />
             {film &&
               <div className="film-card__wrap">
                 <div className="film-card__desc">
