@@ -35,6 +35,9 @@ function Player(): JSX.Element {
     if (videoRef.current === null) {
       return;
     }
+    else {
+      videoRef.current.autoplay = true;
+    }
 
     if (isPlaying) {
       videoRef.current.play();
@@ -75,8 +78,8 @@ function Player(): JSX.Element {
 
   return (
     <div className="player">
-      <video src ={videoLink} ref ={videoRef} className="player__video" poster ={backgroundImage} onTimeUpdate ={timeUpdateHandler} onCanPlay ={() => setLoaded(true)}>
-      </video> {isLoaded? null :
+      <video autoPlay src ={videoLink} ref ={videoRef} className="player__video" poster ={backgroundImage} onTimeUpdate ={timeUpdateHandler} onCanPlay ={() => setLoaded(true)}>
+      </video> {isLoaded && isDataLoaded ? null :
         <div style = {{
           position: 'fixed',
           top: '100px',

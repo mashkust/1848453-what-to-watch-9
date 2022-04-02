@@ -94,7 +94,7 @@ function MoviePages(): JSX.Element {
           <section className="catalog catalog--like-this">
             <h2 className="catalog__title">More like this</h2>
             <div className="catalog__films-list">
-              {filteredSimilarFilms && filteredSimilarFilms.map((el: Film) => (
+              {filteredSimilarFilms && filteredSimilarFilms.slice().map((el: Film) => (
                 <FilmCard film={el} key={el.id} />))}
             </div>
           </section>
